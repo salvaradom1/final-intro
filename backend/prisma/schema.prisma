@@ -22,24 +22,28 @@ model Juego {
   generoId Int
   genero Genero @relation(fields: [generoId], references: [id])
   consola Consola[] @relation("JuegoConsola")
-  fecha_publicacion DateTime
+  fecha_lanzamiento DateTime
   peso  Decimal
   dlcs   DLC[]
 }
 
 model DLC {
   id Int @id @default(autoincrement())
-  juegoId Int //checkear si es necesario
+  juegoId Int 
   titulo String
   descripcion String
-  fecha_publicacion DateTime
+  fecha_lanzamiento DateTime
   peso Decimal
   juego Juego @relation(fields: [juegoId], references: [id])
 }
 
 model Consola {
   id Int @id @default(autoincrement())
-  nombre String 
+  nombre String
+  fecha_lanzamiento DateTime @db.Date
+  desarrollador String?
+  almacenamiento Decimal?
+  tipo String // De sobremesa, portátil, híbrido
   juego Juego[] @relation("JuegoConsola")
 }
 

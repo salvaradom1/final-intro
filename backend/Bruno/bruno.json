@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "GameFinder",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

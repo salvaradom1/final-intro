@@ -1,0 +1,25 @@
+meta {
+  name: crear juegos
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/v1/juegos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "titulo": "Astro Bot",
+    "descripcion": "Astro Bot es un juego de plataformas de acción en 3D que cuenta con más de 50 planetas en multiples galaxias",
+    "modoDeJuegoId": 1,
+    "generoId": 8,
+    "consolaId": [3],
+    "fecha_publicacion": "2024-09-06T00:00:00Z",
+    "peso": 66
+  }
+  
+  
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form Consolas</title>
+
+    <link rel="icon" type="image/png" href="assets/control-de-juego.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <section id="header">
+        <div class="px-3 py-4 text-bg-dark">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-aroundjustify-content-lg-start">
+                <a href="index.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                  <svg class="bi me-2" width="40" height="32" fill="currentColor" role="img" aria-label="joystick"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#joystick"></use></svg>
+                </a>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                  <li>
+                    <a href="index.html" class="nav-link text-secondary">
+                      <svg class="icon bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#house-door"></use></svg>
+                      Inicio
+                    </a>
+                  </li>
+                  <li>
+                    <a href="juegos.html" class="nav-link text-white">
+                      <svg class="bi d-block mx-auto mb-1 text-light" width="24" height="24" fill="currentColor"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#controller"></use></svg>
+                      Juegos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="consolas.html" class="nav-link text-white">
+                      <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#display"></use></svg>
+                      Consolas
+                    </a>
+                  </li>
+                  <li>
+                    <a href="dlc.html" class="nav-link text-white">
+                      <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#puzzle"></use></svg>
+                      DLC
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <section id="Form">
+      <div class="container mt-4 d-flex justify-content-center">
+          <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+              <h2 class="mb-3 text-center">Agregar DLC</h2>
+              <p class="text-center text-muted"><span class="obligatorio">*</span> (Para agregar un DLC, el juego al que pertenece debe haber sido registrado previamente en la base de datos.)</p>
+              
+              <form id="consoleForm">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Juego</label>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Seleccionar juegos
+                        </button>
+                        <ul class="dropdown-menu w-100 p-2" aria-labelledby="dropdownMenuButton">
+                            <input type="text" class="form-control mb-2" id="searchInput" placeholder="Buscar juego...">
+                            <li><label class="dropdown-item"><input type="checkbox" value="Halo"> Halo</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" value="Mario Bros"> Mario Bros</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" value="Valorant"> Valorant</label></li>
+                        </ul>
+                    </div>
+                  </div>
+              
+                  <div class="mb-3">
+                      <label for="name" class="form-label fw-bold">Título</label>
+                      <input type="text" class="form-control" id="name" name="name" required>
+                  </div>
+  
+                  <div class="mb-3">
+                      <label for="description" class="form-label fw-bold">Descripción</label>
+                      <input type="text" class="form-control" id="descrption" name="description" placeholder="Una breve especificación del contenido descargable" required>
+                  </div>
+  
+                  <div class="mb-3">
+                    <label for="releaseDate" class="form-label fw-bold">Fecha de lanzamiento</label>
+                    <input type="date" class="form-control" id="releaseDate" name="releaseDate" required>
+                
+                  </div>
+
+                  <div class="mb-3">
+                      <label for="storage" class="form-label fw-bold">Peso</label>
+                      <input type="text" class="form-control" id="storage" name="storage" placeholder="Ej: 12 GB" required>
+                  </div>
+  
+                  <div class="mb-3">
+                      <label for="type" class="form-label fw-bold">Tipo</label>
+                      <select class="form-select" id="type" name="type" required>
+                          <option value="">Seleccionar</option>
+                          <option value="Portable">Portátil</option>
+                          <option value="Desktop">De sobremesa</option>
+                          <option value="Both">Ambos</option>
+                      </select>
+                  </div>
+              </form>
+              <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-light">Enviar</button>
+                <button type="button" class="btn btn-outline-danger" id="limpiarForm">Limpiar</button>
+            </div>
+
+          </div>
+      </div>
+  </section>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js" type="module"></script>
+</body>
+</html>

@@ -2,6 +2,8 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "icons": "^1.0.0"
+    "icons": "^1.0.0",
+    "node": "^23.8.0",
+    "nodejs": "^0.0.0"
   }
 }

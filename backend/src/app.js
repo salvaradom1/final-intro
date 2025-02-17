@@ -162,11 +162,10 @@ app.post('/api/v1/juegos', async (req, res) => {
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
       modoDeJuegoId: req.body.modoDeJuegoId,
-      generoId: req.body.generoId,
       consola: {
         connect: req.body.consolaId.map(id => ({ id })),  
       },
-      fecha_publicacion: req.body.fecha_publicacion,
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
       peso: req.body.peso,
     }
   })

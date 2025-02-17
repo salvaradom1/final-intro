@@ -43,7 +43,7 @@ model Consola {
   fecha_lanzamiento DateTime? @db.Date
   desarrollador String?
   almacenamiento Decimal?
-  tipo String // De sobremesa, portátil, híbrido
+  tipo String 
   juego Juego[] @relation("JuegoConsola")
 }
 
@@ -58,3 +58,4 @@ model Genero {
   nombre String
   juegos Juego[]
 }
+

@@ -34,16 +34,16 @@ model DLC {
   descripcion String
   fecha_lanzamiento DateTime
   peso Decimal
-  juego Juego @relation(fields: [juegoId], references: [id])
+  juego Juego @relation(fields: [juegoId], references: [id], onDelete: Cascade)
 }
 
 model Consola {
   id Int @id @default(autoincrement())
   nombre String
-  fecha_lanzamiento DateTime @db.Date
+  fecha_lanzamiento DateTime? @db.Date
   desarrollador String?
   almacenamiento Decimal?
-  tipo String // De sobremesa, portátil, híbrido
+  tipo String 
   juego Juego[] @relation("JuegoConsola")
 }
 
@@ -58,3 +58,4 @@ model Genero {
   nombre String
   juegos Juego[]
 }
+

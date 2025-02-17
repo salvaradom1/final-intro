@@ -28,91 +28,51 @@ app.get("/busqueda.html", (req, res) => {
 
 // todo lo de aca arriba es para conectar el front con el back
 
-
-//busca todos los generos
-app.get('/api/v1/generos', async (req, res) => {
-  const generos = await prisma.genero.findMany()
-  res.json(generos)
- })
-
-//creo un genero
-app.post('/api/v1/generos', async (req, res) => {
-  const genero = await prisma.genero.create({
-    data: {
-      nombre: req.body.nombre,
-    }
-  })
-  res.status(201).send(genero)
-})
-
-
-//elimino un genero
-app.delete('/api/v1/generos/:id', async (req, res) => {
-  const genero = await prisma.genero.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-
-  if (genero === null){
-    res.sendStatus(404)
-    return
-  }
-
-  await prisma.genero.delete({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-  res.send(genero)
-})
-
-//actualizo un genero
-app.put('/api/v1/generos/:id', async (req, res) => {
-  let genero = await prisma.genero.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-
-  if (genero === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  genero = await prisma.genero.update({
-    where: {
-      id: genero.id
-    },
-    data: {
-      nombre: req.body.nombre
-    }
-  })
-
-  res.send(genero)
-})
-
-
-
-
-
-
-
 //busca todas las consolas
 app.get('/api/v1/consolas', async (req, res) => {
-  const consolas = await prisma.consola.findMany()
+  const consolas = await prisma.consola.findMany({
+    include: {
+      juego: true,
+    }
+  });
   res.json(consolas)
- })
+ });
+
+//busco un juego por titulo
+app.get('/api/v1/consolas/:nombre', async (req, res) => {
+  const consola = await prisma.juego.findFirst({
+    where: {
+      nombre: req.params.nombre
+    },
+    include: {
+      juego: true
+    },
+  });
+
+  if (consola === null){
+    res.sendStatus(404)
+    return
+  }
+
+  res.json(consola)
+}) 
 
 //creo una consola
 app.post('/api/v1/consolas', async (req, res) => {
   const consola = await prisma.consola.create({
     data: {
       nombre: req.body.nombre,
-    }
-  })
-  res.status(201).send(consola)
-})
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null, //hay q ver si hace falta esto
+      desarrollador: req.body.desarrollador,
+      almacenamiento: req.body.almacenamiento,
+      tipo: req.body.tipo,
+      juego: {
+        connect: req.body.juegoIds?.map(id => ({ id }))
+      },
+    },
+  });
+  res.status(201).send(consola);
+});
 
 //elimino una consola
 app.delete('/api/v1/consolas/:id', async (req, res) => {
@@ -153,77 +113,18 @@ app.put('/api/v1/consolas/:id', async (req, res) => {
       id: consola.id
     },
     data: {
-      nombre: req.body.nombre
-    }
-  })
+      nombre: req.body.nombre,
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null, //hay q ver si hace falta esto
+      desarrollador: req.body.desarrollador,
+      almacenamiento: req.body.almacenamiento,
+      tipo: req.body.tipo,
+      juego: {
+        set: req.body.juegoIds?.map(id => ({ id })),
+      },
+    },
+  });
 
   res.send(consola)
-})
-
-
-
-
-
-//busca todos los modos de juego
-app.get('/api/v1/modosDeJuego', async (req, res) => {
-  const modoDeJuego = await prisma.modoDeJuego.findMany()
-  res.json(modoDeJuego)
- })
-
-//creo un modo de juego
-app.post('/api/v1/modosDeJuego', async (req, res) => {
-  const modoDeJuego = await prisma.modoDeJuego.create({
-    data: {
-      nombre: req.body.nombre,
-    }
-  })
-  res.status(201).send(modoDeJuego)
-})
-
-//elimino un modo de juego
-app.delete('/api/v1/modosDeJuego/:id', async (req, res) => {
-  const modoDeJuego = await prisma.modoDeJuego.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-
-  if (modoDeJuego === null){
-    res.sendStatus(404)
-    return
-  }
-
-  await prisma.modoDeJuego.delete({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-  res.send(modoDeJuego)
-})
-
-//actualizo un modo de juego
-app.put('/api/v1/modosDeJuego/:id', async (req, res) => {
-  let modoDeJuego = await prisma.modoDeJuego.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-
-  if (modoDeJuego === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  modoDeJuego = await prisma.modoDeJuego.update({
-    where: {
-      id: modoDeJuego.id
-    },
-    data: {
-      nombre: req.body.nombre
-    }
-  })
-
-  res.send(modoDeJuego)
 })
 
 

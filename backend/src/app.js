@@ -227,11 +227,13 @@ app.put('/api/v1/juegos/:id', async (req, res) => {
       id: parseInt(req.params.id)
     },
     data: {
-      titulo: titulo ?? req.body.titulo,
-      descripcion: descripcion ?? req.body.descripcion,
-      modoDeJuegoId: modoDeJuegoId ?? req.params.modoDeJuegoId,
-      fecha_publicacion: fecha_publicacion ?? req.params.fecha_publicacion,
-      peso: peso ?? req.params.peso,
+      
+      titulo: req.body.titulo,
+      descripcion: req.body.descripcion,
+      modoDeJuegoId: req.params.modoDeJuegoId,
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
+      peso: req.params.peso,
+
       },
   });
   

@@ -163,7 +163,9 @@ app.post('/api/v1/juegos', async (req, res) => {
     data: {
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
-      modoDeJuegoId: req.body.modoDeJuegoId,
+      modo_de_juego: { 
+        connect: { id: req.body.modoDeJuegoId },
+      }, 
       consola: {
         connect: req.body.consolaId.map(id => ({ id })),  
       },
@@ -266,7 +268,7 @@ app.post('/api/v1/dlcs', async (req, res) => {
       juegoId: req.body.juegoId,
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
-      fecha_publicacion: req.body.fecha_publicacion,
+      fecha_lanzamiento: req.body.fecha_lanzamiento,
       peso: req.body.peso,
     }
   })
@@ -318,7 +320,7 @@ app.put('/api/v1/dlcs/:id', async (req, res) => {
       juegoId: juegoId ?? req.body.juegoId,
       titulo: titulo ?? req.body.titulo,
       descripcion: descripcion ?? req.body.descripcion,
-      fecha_publicacion: fecha_publicacion ?? req.body.fecha_publicacion,
+      fecha_lanzamiento: fecha_lanzamiento ?? req.body.fecha_lanzamiento,
       peso: peso ?? req.body.peso,
     }
   });

@@ -8,10 +8,9 @@ const port = 3000
 const prisma = new PrismaClient()
 
 // todo lo q es css, imagenes y eso
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
 app.use(express.static(ruta.join(__dirname, "../../frontend")))
-app.use('/api/v1/consolas')
 
 // pag principal
 app.get('/', (req, res) => {
@@ -229,7 +228,6 @@ app.put('/api/v1/juegos/:id', async (req, res) => {
       titulo: titulo ?? req.body.titulo,
       descripcion: descripcion ?? req.body.descripcion,
       modoDeJuegoId: modoDeJuegoId ?? req.params.modoDeJuegoId,
-      generoId: generoId ?? req.params.generoId,
       fecha_publicacion: fecha_publicacion ?? req.params.fecha_publicacion,
       peso: peso ?? req.params.peso,
       },

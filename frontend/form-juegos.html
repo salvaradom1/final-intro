@@ -51,51 +51,50 @@
     <section id="Form">
       <div class="container mt-4 d-flex justify-content-center">
           <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
-              <h2 class="mb-3 text-center">Agregar Consola</h2>
-              <p class="text-center text-muted">(Los campos con <span class="obligatorio">*</span> son obligatorios)</p>
+              <h2 class="mb-3 text-center">Agregar Juego</h2>
+              <p class="text-center text-muted"></p>
               
               <form id="consoleForm">
                   <div class="mb-3">
-                      <label for="name" class="form-label fw-bold">Nombre <span class="obligatorio">*</span></label>
+                      <label for="name" class="form-label fw-bold">Título</label>
                       <input type="text" class="form-control" id="name" name="name" required>
                   </div>
   
                   <div class="mb-3">
-                      <label for="releaseDate" class="form-label fw-bold">Fecha de lanzamiento</label>
-                      <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+                    <label for="description" class="form-label fw-bold">Descripción</label>
+                    <input type="text" class="form-control" id="description" name="description" required>
                   </div>
   
                   <div class="mb-3">
-                      <label for="developer" class="form-label fw-bold">Desarrollador</label>
-                      <input type="text" class="form-control" id="developer" name="developer" placeholder="Ej: Microsoft, Sony, Nintendo...">
+                    <label for="releaseDate" class="form-label fw-bold">Fecha de lanzamiento</label>
+                    <input type="date" class="form-control" id="releaseDate" name="releaseDate" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="type" class="form-label fw-bold">Tipo</label>
+                    <select class="form-select" id="type" name="type" required>
+                        <option select disabled>Seleccionar</option>
+                        <option value="Portable">Un jugador</option>
+                        <option value="Desktop">Multijugador</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                      <label for="storage" class="form-label fw-bold">Peso</label>
+                      <input type="text" class="form-control" id="storage" name="storage" placeholder="Ej: 12 GB" required>
                   </div>
   
                   <div class="mb-3">
-                      <label for="storage" class="form-label fw-bold">Almacenamiento</label>
-                      <input type="text" class="form-control" id="storage" name="storage" placeholder="Ej: 12 GB">
-                  </div>
-  
-                  <div class="mb-3">
-                      <label for="type" class="form-label fw-bold">Tipo <span class="obligatorio">*</span></label>
-                      <select class="form-select" id="type" name="type" required>
-                          <option value="">Seleccionar</option>
-                          <option value="Portable">Portátil</option>
-                          <option value="Desktop">De sobremesa</option>
-                          <option value="Both">Ambos</option>
-                      </select>
-                  </div>
-  
-                  <div class="mb-3">
-                    <label class="form-label fw-bold">Juegos compatibles <span class="obligatorio">*</span></label>
+                    <label class="form-label fw-bold">Consolas compatibles</label>
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Seleccionar juegos
+                            Seleccionar consolas
                         </button>
                         <ul class="dropdown-menu w-100 p-2" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="form-control mb-2" id="searchInput" placeholder="Buscar juego...">
-                            <li><label class="dropdown-item"><input type="checkbox" value="Halo"> Halo</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="Mario Bros"> Mario Bros</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="Valorant"> Valorant</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" value="Halo"> PC</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" value="Mario Bros"> PS4</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" value="Valorant"> Nintendo Switch</label></li>
                         </ul>
                     </div>
                   </div>

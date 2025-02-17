@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const ruta = require("path")
 const port = 3000
@@ -8,6 +9,7 @@ const prisma = new PrismaClient()
 
 // todo lo q es css, imagenes y eso
 app.use(express.json())
+app.use(cors())
 app.use(express.static(ruta.join(__dirname, "../../frontend")))
 app.use('/api/v1/consolas')
 

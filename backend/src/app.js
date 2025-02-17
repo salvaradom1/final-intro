@@ -9,7 +9,6 @@ const prisma = new PrismaClient()
 // todo lo q es css, imagenes y eso
 app.use(express.json())
 app.use(express.static(ruta.join(__dirname, "../../frontend")))
-app.use('/api/v1/consolas')
 
 // pag principal
 app.get('/', (req, res) => {

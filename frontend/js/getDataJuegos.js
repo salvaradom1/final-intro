@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", getDataConsolas);
 
 function getDataConsolas () {
-    fetch('http://localhost:3000/api/v1/consolas')
+    fetch('http://localhost:3000/api/v1/juegos')
     .then(response => response.json())
     .then(json => {
         console.log(json);

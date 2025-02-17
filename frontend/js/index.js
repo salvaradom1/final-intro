@@ -1,6 +1,8 @@
-import { limpiarConsola } from './console-form.js'
-import { buscarJuegos } from './console-form.js';
+import { limpiarConsola } from './modules/scriptForms.js'
+import { buscarJuegos } from './modules/scriptForms.js';
 
 limpiarConsola();
 buscarJuegos();
+
+
 

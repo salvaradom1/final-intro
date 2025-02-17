@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const ruta = require("path")
 const port = 3000
@@ -7,6 +8,7 @@ const port = 3000
 const prisma = new PrismaClient()
 
 // todo lo q es css, imagenes y eso
+app.use(cors())
 app.use(express.json())
 app.use(express.static(ruta.join(__dirname, "../../frontend")))
 
@@ -225,11 +227,13 @@ app.put('/api/v1/juegos/:id', async (req, res) => {
       id: parseInt(req.params.id)
     },
     data: {
+      
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
       modoDeJuegoId: req.params.modoDeJuegoId,
       fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
       peso: req.params.peso,
+
       },
   });
   

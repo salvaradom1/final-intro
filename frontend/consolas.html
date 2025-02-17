@@ -65,6 +65,10 @@
     <section id="footer">
         
     </section>
-    <script src="js/index.js" type="module"></script>
+    <script type="module">
+      import { obtenerConsolas } from "./js/getDataConsolas.js";
+      document.addEventListener("DOMContentLoaded", obtenerConsolas);
+  </script>
+  
 </body>
 </html>

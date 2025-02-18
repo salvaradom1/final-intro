@@ -265,12 +265,14 @@ app.get('/api/v1/dlcs/:id', async (req, res) => {
 
 //creo un nuevo dlc
 app.post('/api/v1/dlcs', async (req, res) => {
-  const dlc = await prisma.dlc.create({
+  const dlc = await prisma.dLC.create({
     data: {
-      juegoId: req.body.juegoId,
+      juego: { 
+        connect: { id: req.body.juegoId },
+      }, 
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
-      fecha_lanzamiento: req.body.fecha_lanzamiento,
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
       peso: req.body.peso,
     }
   })
@@ -319,11 +321,11 @@ app.put('/api/v1/dlcs/:id', async (req, res) => {
       id: parseInt(req.params.id)
     },
     data: {
-      juegoId: juegoId ?? req.body.juegoId,
-      titulo: titulo ?? req.body.titulo,
-      descripcion: descripcion ?? req.body.descripcion,
-      fecha_lanzamiento: fecha_lanzamiento ?? req.body.fecha_lanzamiento,
-      peso: peso ?? req.body.peso,
+      juegoId: req.body.juegoId,
+      titulo: req.body.titulo,
+      descripcion: req.body.descripcion,
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
+      peso: req.body.peso,
     }
   });
   res.send(dlc)

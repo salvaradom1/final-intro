@@ -6,10 +6,20 @@ meta {
 
 put {
   url: http://localhost:3000/api/v1/dlcs/:id
-  body: none
+  body: json
   auth: none
 }
 
 params:path {
-  id: 3
+  id: 1
+}
+
+body:json {
+  {
+    "juegoId": 2,
+    "titulo": "DLC imaginario",
+    "descripcion": "astro bot no tiene DLCS(esto es una prueba)",
+    "fecha_lanzamiento": "2026-09-08T00:00:00.000Z",
+    "peso": 150
+  }
 }

@@ -25,7 +25,7 @@ function getDataJuegos() {
                                 <li class="list-group-item">Fecha de lanzamiento: ${juego.fecha_lanzamiento}</li>
                                 <li class="list-group-item">Peso: ${juego.peso}</li>
                                 <li class="list-group-item">Consolas: 
-                                    <button class="btn btn-link-light" onclick="mostrarConsolas(${juego.consola})">Ver compatibles</button>
+                                    <button class="btn btn-link-light" onclick="mostrarConsolas(${juego.id})">Ver compatibles</button>
                                 </li>
                                 <li class="list-group-item">DLC's: 
                                     <button class="btn btn-link-light" onclick="mostrarDLC(${juego.dlc})">Ver compatibles</button>

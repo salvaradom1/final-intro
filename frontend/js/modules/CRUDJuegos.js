@@ -25,10 +25,10 @@ function getDataJuegos() {
                                 <li class="list-group-item">Fecha de lanzamiento: ${juego.fecha_lanzamiento}</li>
                                 <li class="list-group-item">Peso: ${juego.peso}</li>
                                 <li class="list-group-item">Consolas: 
-                                    <button class="btn btn-link-light" onclick="mostrarJuegos(${juego.consola})">Ver compatibles</button>
+                                    <button class="btn btn-link-light" onclick="mostrarConsolas(${juego.consola})">Ver compatibles</button>
                                 </li>
                                 <li class="list-group-item">DLC's: 
-                                    <button class="btn btn-link-light" onclick="mostrarJuegos(${juego.dlc})">Ver compatibles</button>
+                                    <button class="btn btn-link-light" onclick="mostrarDLC(${juego.dlc})">Ver compatibles</button>
                                 </li>
                             </ul>
                              <div class="d-flex justify-content-start my-3"> 
@@ -52,3 +52,47 @@ function getDataJuegos() {
     })
     .catch(error => console.error('Error fetching data:', error));
 };
+
+
+function getConsolesForGame(juegoId) {
+    return fetch(`http://localhost:3000/api/v1/juegos/${juegoId}/consolas`)
+        .then(response => response.json());
+}
+
+function mostrarConsolas(juegoId) {
+    getConsolesForGame(juegoId).then(consolas => {
+        console.log(consolas); 
+        let listaConsolas = consolas.map(consola => `<li>${consola.nombre}</li>`).join('');
+        document.getElementById('modal-consoles-list').innerHTML = `<ul>${listaConsolas}</ul>`;
+   
+        let modal = new bootstrap.Modal(document.getElementById('consolesModal'));
+        modal.show();
+    }).catch(error => {
+        console.error('Error fetching consoles:', error);
+        document.getElementById('modal-consoles-list').innerHTML = '<p>No hay consolas compatibles cargados para este juego aún</p>';
+        let modal = new bootstrap.Modal(document.getElementById('consolesModal'));
+        modal.show();
+    });
+}
+
+
+function getDlcForGame(juegoId) {
+    return fetch(`http://localhost:3000/api/v1/juegos/${juegoId}/dlcs`)
+        .then(response => response.json());
+}
+
+function mostrarDLC(juegoId) {
+    getDlcForGame(juegoId).then(dlcs => {
+        console.log(dlcs); 
+        let listaDlcs= dlcs.map(dlc => `<li>${dlc.nombre}</li>`).join('');
+        document.getElementById('modal-dlc-list').innerHTML = `<ul>${listaDlcs}</ul>`;
+   
+        let modal = new bootstrap.Modal(document.getElementById('dlcModal'));
+        modal.show();
+    }).catch(error => {
+        console.error('Error fetching DLCs:', error);
+        document.getElementById('modal-dlc-list').innerHTML = '<p>No hay DLC cargados para este juego</p>';
+        let modal = new bootstrap.Modal(document.getElementById('dlcModal'));
+        modal.show();
+    });
+}

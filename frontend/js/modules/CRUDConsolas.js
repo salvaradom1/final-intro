@@ -27,9 +27,17 @@ function getDataConsolas() {
                                         <button class="btn btn-link-light" onclick="mostrarJuegos(${consola.id})">Ver compatibles</button>
                                     </li>
                                 </ul>
-                                <div class="d-flex justify-content-center my-3">
-                                    <button class="btn btn-light me-2" type="button" onclick="editConsola(${consola.id})">Editar</button>
-                                    <button class="btn btn-danger" type="button" onclick="deleteConsola(${consola.id})">Borrar</button>
+                                <div class="d-flex justify-content-start my-3"> 
+                                    <button class="btn btn-light ms-3" type="button">
+                                        <svg class="icon bi" width="16" height="16" fill="currentColor">
+                                            <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
+                                        </svg>
+                                    </button>
+                                    <button class="btn btn-danger ms-3" type="button">
+                                        <svg class="icon bi" width="16" height="16" fill="currentColor">
+                                            <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#trash3"></use>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,34 @@
+.card .icon {
+    font-size: 3rem; 
+}
+
+.card:hover {
+    background-color: var(--bs-secondary); 
+}
+
+.card:hover .icon, 
+.card:hover .card-body {
+    color: var(--bs-dark); 
+}
+
+.card.text-center .icon {
+    font-size: 3rem;
+}
+
+.card.text-center:hover {
+    background-color: var(--bs-secondary);
+}
+
+.card {
+    transition: all 0.3s;
+}
+
+.card.text-center:hover .icon, 
+.card.text-center:hover .card-body {
+    color: var(--bs-dark);
+}
+
+.card:hover .list-group-item {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}

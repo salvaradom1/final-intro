@@ -40,7 +40,7 @@ app.get('/api/v1/consolas', async (req, res) => {
   res.json(consolas)
  });
 
-//busco un juego por titulo
+//busco una consola por titulo
 app.get('/api/v1/consolas/:nombre', async (req, res) => {
   const consola = await prisma.juego.findFirst({
     where: {
@@ -72,6 +72,9 @@ app.post('/api/v1/consolas', async (req, res) => {
         connect: req.body.juegoIds?.map(id => ({ id }))
       },
     },
+    include: {
+      juego: true
+    }
   });
   res.status(201).send(consola);
 });
@@ -124,6 +127,9 @@ app.put('/api/v1/consolas/:id', async (req, res) => {
         set: req.body.juegoIds?.map(id => ({ id })),
       },
     },
+    include: {
+      juego: true,
+    }
   });
 
   res.send(consola)
@@ -133,7 +139,14 @@ app.put('/api/v1/consolas/:id', async (req, res) => {
 
 //busco todos los juegos
 app.get('/api/v1/juegos', async (req, res) => {
-  const juegos = await prisma.juego.findMany()
+  const juegos = await prisma.juego.findMany({
+    include: {
+    consola: true,
+    modo_de_juego: true,
+    dlcs: true
+    }
+  })
+
   res.json(juegos)
  })
 
@@ -146,6 +159,7 @@ app.get('/api/v1/juegos/:titulo', async (req, res) => {
     include: {
       consola: true,
       dlcs: true,
+      modo_de_juego: true,
     },
   });
 
@@ -171,6 +185,11 @@ app.post('/api/v1/juegos', async (req, res) => {
       },
       fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
       peso: req.body.peso,
+    },
+    include: {
+      consola: true,
+      modo_de_juego: true,
+      dlcs: true
     }
   })
   res.status(201).send(juego)
@@ -186,7 +205,7 @@ app.delete('/api/v1/juegos/:id', async (req, res) => {
       id: parseInt(req.params.id),
     },
     include: {
-      dlcs: true,
+      dlc: true,
     }
     
   })
@@ -227,14 +246,22 @@ app.put('/api/v1/juegos/:id', async (req, res) => {
       id: parseInt(req.params.id)
     },
     data: {
-      
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
-      modoDeJuegoId: req.params.modoDeJuegoId,
-      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
-      peso: req.params.peso,
-
+      modo_de_juego: { 
+        connect: { id: req.body.modoDeJuegoId },
+      }, 
+      consola: {
+        connect: req.body.consolaIds?.map(id => ({ id })),  
       },
+      fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
+      peso: req.body.peso,
+    },
+    include: {
+      consola: true,
+      modo_de_juego: true,
+      dlcs: true
+    }
   });
   
 
@@ -243,7 +270,11 @@ app.put('/api/v1/juegos/:id', async (req, res) => {
 
 //busco todos los DLCs
 app.get('/api/v1/dlcs', async (req, res) => {
-  const dlcs = await prisma.dLC.findMany()
+  const dlcs = await prisma.dLC.findMany({
+    include: {
+      juego: true
+    }
+  })
   res.json(dlcs)
  })
 
@@ -253,6 +284,9 @@ app.get('/api/v1/dlcs/:id', async (req, res) => {
     where: {
       id: req.params.id
     },
+    include: {
+      juego: true
+    }
   });
 
   if (dlc === null){
@@ -274,6 +308,9 @@ app.post('/api/v1/dlcs', async (req, res) => {
       descripcion: req.body.descripcion,
       fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
       peso: req.body.peso,
+    },
+    include: {
+      juego: true,
     }
   })
   res.status(201).send(dlc)
@@ -321,11 +358,16 @@ app.put('/api/v1/dlcs/:id', async (req, res) => {
       id: parseInt(req.params.id)
     },
     data: {
-      juegoId: req.body.juegoId,
+      juego: { 
+        connect: { id: req.body.juegoId },
+      }, 
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
       fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null,
       peso: req.body.peso,
+    },
+    include: {
+      juego: true
     }
   });
   res.send(dlc)

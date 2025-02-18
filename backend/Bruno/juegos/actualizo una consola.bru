@@ -5,11 +5,23 @@ meta {
 }
 
 put {
-  url: http://localhost:3000/api/v1/consolas/:id
-  body: none
+  url: http://localhost:3000/api/v1/juegos/:id
+  body: json
   auth: none
 }
 
 params:path {
-  id: 1
+  id: 5
+}
+
+body:json {
+  {
+    "titulo": "gta",
+    "descripcion": "aguante el GTA",
+    "modoDeJuegoId": 1,
+    "consolaId": [5],
+    "fecha_lanzamiento": "2016-09-06",
+    "peso": 100
+  }
+  
 }

@@ -1,0 +1,11 @@
+.btn-no-outline {
+    background-color: transparent; 
+    border: none; 
+}
+
+.btn-no-outline .delete {
+    background-color: transparent; 
+    border: none; 
+    color:  #dc3545; 
+}
+

@@ -27,13 +27,13 @@ function getDataDlcs() {
                                     <li class="list-group-item">Fecha de lanzamiento: ${fechaFormateada}</li>
                                     <li class="list-group-item">Peso: ${dlc.peso} GB</li>
                                 </ul>
-                                <div class="d-flex justify-content-start my-3"> 
+                                <div class="d-flex justify-content-end my-3"> 
                                     <button class="btn btn-light ms-3" type="button">
                                         <svg class="icon bi" width="16" height="16" fill="currentColor">
                                             <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
                                         </svg>
                                     </button>
-                                    <button class="btn btn-danger ms-3" type="button">
+                                    <button id="deleteButton" class="btn btn-danger ms-3" type="button" data-bs-toggle="modal" data-bs-target="#modalDeleteDLC" data-id="${dlc.id}">
                                         <svg class="icon bi" width="16" height="16" fill="currentColor">
                                             <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#trash3"></use>
                                         </svg>
@@ -48,3 +48,45 @@ function getDataDlcs() {
         })
         .catch(error => console.error('Error fetching data:', error));
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modalDeleteDLC = document.getElementById("modalDeleteDLC");
+    const botonEliminar = document.getElementById("confirmDelete");
+
+    modalDeleteDLC.addEventListener("show.bs.modal", function (event) {
+        const boton = event.relatedTarget; 
+        const dlcId = boton.getAttribute("data-id"); 
+
+        if (dlcId) {
+            botonEliminar.setAttribute("data-id", dlcId);
+        }
+    });
+
+    botonEliminar.addEventListener("click", function () {
+        const dlcId = botonEliminar.getAttribute("data-id");
+
+
+        fetch(`http://localhost:3000/api/v1/dlcs/${dlcId}`, {
+            method: "DELETE"
+        })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error("Error al eliminar DLC");
+            }
+            return response.json();
+        })
+        .then(() => {
+            console.log(`DLC ${dlcId} eliminado correctamente`);
+
+            let modalInstance = bootstrap.Modal.getInstance(modalDeleteConsole);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+
+            getDataDlcs();
+        })
+        .catch(error => console.error("Error eliminando dlc:", error));
+    });
+});

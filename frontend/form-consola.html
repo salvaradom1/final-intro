@@ -57,7 +57,7 @@
               <form id="consoleForm">
                   <div class="mb-3">
                       <label for="name" class="form-label fw-bold">Nombre <span class="obligatorio">*</span></label>
-                      <input type="text" class="form-control" id="name" name="name" required>
+                      <input type="text" class="form-control" id="name" name="nombre" required>
                   </div>
   
                   <div class="mb-3">
@@ -72,7 +72,7 @@
   
                   <div class="mb-3">
                       <label for="storage" class="form-label fw-bold">Almacenamiento</label>
-                      <input type="text" class="form-control" id="storage" name="storage" placeholder="Ej: 12 GB">
+                      <input type="text" class="form-control" id="storage" name="storage" placeholder="Ej: 12">
                   </div>
   
                   <div class="mb-3">
@@ -93,14 +93,11 @@
                         </button>
                         <ul class="dropdown-menu w-100 p-2" aria-labelledby="dropdownMenuButton">
                             <input type="text" class="form-control mb-2" id="searchInput" placeholder="Buscar juego...">
-                            <li><label class="dropdown-item"><input type="checkbox" value="Halo"> Halo</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="Mario Bros"> Mario Bros</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="Valorant"> Valorant</label></li>
                         </ul>
                     </div>
                   </div>
                   <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-light">Enviar</button>
+                    <button type="submit" id="submit" class="btn btn-light">Enviar</button>
                     <button type="button" class="btn btn-outline-danger" id="limpiarForm">Limpiar</button>
                 </div>
               </form>

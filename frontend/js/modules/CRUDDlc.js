@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(() => {
             console.log(`DLC ${dlcId} eliminado correctamente`);
 
-            let modalInstance = bootstrap.Modal.getInstance(modalDeleteConsole);
+            let modalInstance = bootstrap.Modal.getInstance(modalDeleteDLC);
             if (modalInstance) {
                 modalInstance.hide();
             }

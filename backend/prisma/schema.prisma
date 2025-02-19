@@ -17,8 +17,7 @@ model Juego {
   id  Int @id @default(autoincrement())
   titulo  String 
   descripcion String
-  modoDeJuegoId Int
-  modo_de_juego ModoDeJuego @relation(fields: [modoDeJuegoId], references: [id])
+  modo_de_juego ModoDeJuego[] @relation("JuegoModoDeJuego")
   consola Consola[] @relation("JuegoConsola")
   fecha_lanzamiento DateTime
   peso  Decimal
@@ -41,14 +40,14 @@ model Consola {
   fecha_lanzamiento DateTime? @db.Date
   desarrollador String?
   almacenamiento Decimal?
-  tipo String 
+  tipo String? 
   juego Juego[] @relation("JuegoConsola")
 }
 
 model ModoDeJuego {
   id Int @id @default(autoincrement())
   nombre String
-  juegos Juego[]
+  juegos Juego[] @relation("JuegoModoDeJuego")
 }
 
 

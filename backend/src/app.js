@@ -197,7 +197,7 @@ app.post('/api/v1/juegos', async (req, res) => {
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
       modo_de_juego: { 
-        connect: { id: req.body.modoDeJuegoId },
+        connect: req.body.modoDeJuegoIds?.map(id => ({ id })), 
       }, 
       consola: {
         connect: req.body.consolaId.map(id => ({ id })),  
@@ -268,7 +268,7 @@ app.put('/api/v1/juegos/:id', async (req, res) => {
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
       modo_de_juego: { 
-        connect: { id: req.body.modoDeJuegoId },
+        connect: req.body.modoDeJuegoIds?.map(id => ({ id })), 
       }, 
       consola: {
         connect: req.body.consolaIds?.map(id => ({ id })),  

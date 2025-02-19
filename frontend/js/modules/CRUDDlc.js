@@ -27,7 +27,7 @@ function getDataDlcs() {
                                     <li class="list-group-item">Fecha de lanzamiento: ${fechaFormateada}</li>
                                     <li class="list-group-item">Peso: ${dlc.peso} GB</li>
                                 </ul>
-                                <div class="d-flex justify-content-start my-3"> 
+                                <div class="d-flex justify-content-end my-3"> 
                                     <button class="btn btn-light ms-3" type="button">
                                         <svg class="icon bi" width="16" height="16" fill="currentColor">
                                             <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>

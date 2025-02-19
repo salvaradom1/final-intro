@@ -9,6 +9,7 @@ function getDataConsolas() {
             consolasContainer.innerHTML = '';
 
             consolas.forEach(consola => {
+                let fechaFormateada = new Date(consola.fecha_lanzamiento).toLocaleDateString();
                 let card = `
                     <div class="col-sm-4 mb-4">
                         <div class="card text-left border-0 shadow rounded-0 p-3" style="max-width: 22rem;">
@@ -20,15 +21,15 @@ function getDataConsolas() {
                             <div class="card-body">
                                 <h4 class="card-title text-center fw-bold text">${consola.nombre}</h4>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Fecha de lanzamiento: ${consola.fecha_lanzamiento}</li>
+                                    <li class="list-group-item">Fecha de lanzamiento: ${fechaFormateada}</li>
                                     <li class="list-group-item">Desarrollador: ${consola.desarrollador}</li>
-                                    <li class="list-group-item">Almacenamiento (GB): ${consola.almacenamiento}</li>
+                                    <li class="list-group-item">Almacenamiento: ${consola.almacenamiento} GB</li>
                                     <li class="list-group-item">Tipo: ${consola.tipo}</li>
                                     <li class="list-group-item">Juegos: 
                                         <button class="btn btn-link-light ver-juegos" data-juegos='${JSON.stringify(consola.juego)}'>Ver compatibles</button>
                                     </li>
                                 </ul>
-                                <div class="d-flex justify-content-start my-3"> 
+                                <div class="d-flex justify-content-end my-3"> 
                                     <button class="btn btn-light ms-3" type="button">
                                         <svg class="icon bi" width="16" height="16" fill="currentColor">
                                             <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>

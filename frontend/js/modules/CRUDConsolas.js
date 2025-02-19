@@ -30,16 +30,16 @@ function getDataConsolas() {
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-end my-3"> 
-                                    <button class="btn btn-light ms-3" type="button">
-                                        <svg class="icon bi" width="16" height="16" fill="currentColor">
-                                            <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
-                                        </svg>
-                                    </button>
-                                    <button class="btn btn-danger ms-3" type="button">
-                                        <svg class="icon bi" width="16" height="16" fill="currentColor">
-                                            <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#trash3"></use>
-                                        </svg>
-                                    </button>
+                                        <button class="btn btn-light ms-3" type="button" onclick="editarConsola()">
+                                            <svg class="icon bi" width="16" height="16" fill="currentColor">
+                                                <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
+                                            </svg>
+                                        </button>
+                                        <button id="deleteButton" class="btn btn-danger ms-3" type="button" data-bs-toggle="modal" data-bs-target="#modalDeleteConsole"  data-id="${consola.id}">
+                                            <svg class="icon bi" width="16" height="16" fill="currentColor">
+                                                <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#trash3"></use>
+                                            </svg>
+                                        </button>
                                 </div>
                             </div>
                         </div>
@@ -71,4 +71,44 @@ document.addEventListener("click", function(event) {
         let juegos = JSON.parse(event.target.getAttribute("data-juegos"));
         mostrarJuegos(juegos);  
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modalDeleteConsole = document.getElementById("modalDeleteConsole");
+    const botonEliminar = document.getElementById("confirmDelete");
+
+    modalDeleteConsole.addEventListener("show.bs.modal", function (event) {
+        const boton = event.relatedTarget; 
+        const consoleId = boton.getAttribute("data-id"); 
+
+        if (consoleId) {
+            botonEliminar.setAttribute("data-id", consoleId);
+        }
+    });
+
+    botonEliminar.addEventListener("click", function () {
+        const consoleId = botonEliminar.getAttribute("data-id");
+
+
+        fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`, {
+            method: "DELETE"
+        })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error("Error al eliminar la consola");
+            }
+            return response.json();
+        })
+        .then(() => {
+            console.log(`Consola ${consoleId} eliminada correctamente`);
+
+            let modalInstance = bootstrap.Modal.getInstance(modalDeleteConsole);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+
+            getDataConsolas();
+        })
+        .catch(error => console.error("Error eliminando consola:", error));
+    });
 });

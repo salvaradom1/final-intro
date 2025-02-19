@@ -10,7 +10,7 @@ function getDataConsolas() {
 
             consolas.forEach(consola => {
                 let card = `
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mb-4">
                         <div class="card text-left border-0 shadow rounded-0 p-3" style="max-width: 22rem;">
                             <div class="icon">
                                 <svg class="icon bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
@@ -22,7 +22,7 @@ function getDataConsolas() {
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">Fecha de lanzamiento: ${consola.fecha_lanzamiento}</li>
                                     <li class="list-group-item">Desarrollador: ${consola.desarrollador}</li>
-                                    <li class="list-group-item">Almacenamiento: ${consola.almacenamiento}</li>
+                                    <li class="list-group-item">Almacenamiento (GB): ${consola.almacenamiento}</li>
                                     <li class="list-group-item">Tipo: ${consola.tipo}</li>
                                     <li class="list-group-item">Juegos: 
                                         <button class="btn btn-link-light" onclick="mostrarJuegos(${consola.id})">Ver compatibles</button>

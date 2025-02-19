@@ -10,7 +10,7 @@ function getDataJuegos() {
 
         juegos.forEach(juego => {
             let card = `
-                <div class="col-sm-4">
+                <div class="col-sm-4 mb-4">
                     <div class="card text-left border-0 shadow rounded-0 p-3" style="max-width: 22rem;">
                         <div class="icon">
                             <svg class="icon bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
@@ -21,9 +21,9 @@ function getDataJuegos() {
                             <h4 class="card-title text-center fw-bold text">${juego.titulo}</h4>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Descripcion: ${juego.descripcion}</li>
-                                <li class="list-group-item">Modo de Juego: ${juego.modoDeJuegoId}</li>
+                                <li class="list-group-item">Modo de Juego: ${juego.modo_de_juego.nombre}</li>
                                 <li class="list-group-item">Fecha de lanzamiento: ${juego.fecha_lanzamiento}</li>
-                                <li class="list-group-item">Peso: ${juego.peso}</li>
+                                <li class="list-group-item">Peso: ${juego.peso}</li>    
                                 <li class="list-group-item">Consolas: 
                                     <button class="btn btn-link-light" onclick="mostrarConsolas(${juego.id})">Ver compatibles</button>
                                 </li>

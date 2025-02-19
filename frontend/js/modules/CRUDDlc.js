@@ -1,16 +1,18 @@
-document.addEventListener("DOMContentLoaded", getDataConsolas);
+document.addEventListener("DOMContentLoaded", getDataDlcs);
 
-function getDataConsolas() {
+function getDataDlcs() {
     fetch('http://localhost:3000/api/v1/dlcs')
         .then(response => response.json())
         .then(dlcs => {
             console.log(dlcs); 
-            let dlcsContainer = document.getElementById('dlcscontainer');
+            let dlcsContainer = document.getElementById('dlcs-container');
             dlcsContainer.innerHTML = '';
 
             dlcs.forEach(dlc => {
+                let fechaFormateada = new Date(dlc.fecha_lanzamiento).toLocaleDateString();
+                
                 let card = `
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mb-4">
                         <div class="card text-left border-0 shadow rounded-0 p-3" style="max-width: 22rem;">
                             <div class="icon">
                                 <svg class="icon bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
@@ -20,11 +22,10 @@ function getDataConsolas() {
                             <div class="card-body">
                                 <h4 class="card-title text-center fw-bold text">${dlc.titulo}</h4>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Juego: ${consola.juego}</li>
-                                    <li class="list-group-item">Descripcion: ${consola.descripcion}</li>
-                                    <li class="list-group-item">Fecha de lanzamiento: ${consola.fecha_lanzamiento}</p>
-                                    <li class="list-group-item">Peso: ${consola.peso}</li>
-                
+                                    <li class="list-group-item">Juego: ${dlc.juego.titulo}</li>
+                                    <li class="list-group-item">Descripción: ${dlc.descripcion}</li>
+                                    <li class="list-group-item">Fecha de lanzamiento: ${fechaFormateada}</li>
+                                    <li class="list-group-item">Peso: ${dlc.peso} GB</li>
                                 </ul>
                                 <div class="d-flex justify-content-start my-3"> 
                                     <button class="btn btn-light ms-3" type="button">
@@ -42,28 +43,8 @@ function getDataConsolas() {
                         </div>
                     </div>
                 `;
-                consolasContainer.innerHTML += card;
+                dlcsContainer.innerHTML += card;
             });
         })
         .catch(error => console.error('Error fetching data:', error));
-}
-
-function getGamesForConsola(consolaId) {
-    return fetch(`http://localhost:3000/api/v1/consolas/${consolaId}/juegos`)
-        .then(response => response.json());
-}
-
-function mostrarJuegos(consolaId) {
-    getGamesForConsola(consolaId).then(games => {
-        let gamesList = games.map(game => `<li>${game.nombre}</li>`).join('');
-        document.getElementById('modal-games-list').innerHTML = `<ul>${gamesList}</ul>`;
-   
-        let modal = new bootstrap.Modal(document.getElementById('gamesModal'));
-        modal.show();
-        }).catch(error => {
-        console.error('Error fetching games:', error);
-        document.getElementById('modal-games-list').innerHTML = '<p> No hay juegos compatibles cargados para esta consola aún </p>';
-        let modal = new bootstrap.Modal(document.getElementById('gamesModal'));
-        modal.show();
-    });
 }

@@ -224,7 +224,7 @@ app.delete('/api/v1/juegos/:id', async (req, res) => {
       id: parseInt(req.params.id),
     },
     include: {
-      dlc: true,
+      dlcs: true,
     }
     
   })

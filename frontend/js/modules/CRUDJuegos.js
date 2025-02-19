@@ -25,10 +25,10 @@ function getDataJuegos() {
                                 <li class="list-group-item">Fecha de lanzamiento: ${juego.fecha_lanzamiento}</li>
                                 <li class="list-group-item">Peso: ${juego.peso}</li>    
                                 <li class="list-group-item">Consolas: 
-                                    <button class="btn btn-link-light" onclick="mostrarConsolas(${juego.id})">Ver compatibles</button>
+                                    <button class="btn btn-link-light ver-consolas" data-consolas='${JSON.stringify(juego.consola)}'>Ver compatibles</button>
                                 </li>
                                 <li class="list-group-item">DLC's: 
-                                    <button class="btn btn-link-light" onclick="mostrarDLC(${juego.dlc})">Ver compatibles</button>
+                                    <button class="btn btn-link-light ver-dlc" data-dlcs='${JSON.stringify(juego.dlcs)}'>Ver compatibles</button>
                                 </li>
                             </ul>
                              <div class="d-flex justify-content-start my-3"> 
@@ -53,46 +53,40 @@ function getDataJuegos() {
     .catch(error => console.error('Error fetching data:', error));
 };
 
-
-function getConsolesForGame(juegoId) {
-    return fetch(`http://localhost:3000/api/v1/juegos/${juegoId}/consolas`)
-        .then(response => response.json());
-}
-
-function mostrarConsolas(juegoId) {
-    getConsolesForGame(juegoId).then(consolas => {
-        console.log(consolas); 
+function mostrarConsolas(consolas) {
+    let modalConsolasList = document.getElementById('modal-consoles-list');
+    
+    if (consolas && consolas.length > 0) {
         let listaConsolas = consolas.map(consola => `<li>${consola.nombre}</li>`).join('');
-        document.getElementById('modal-consoles-list').innerHTML = `<ul>${listaConsolas}</ul>`;
-   
-        let modal = new bootstrap.Modal(document.getElementById('consolesModal'));
-        modal.show();
-    }).catch(error => {
-        console.error('Error fetching consoles:', error);
-        document.getElementById('modal-consoles-list').innerHTML = '<p>No hay consolas compatibles cargados para este juego aún</p>';
-        let modal = new bootstrap.Modal(document.getElementById('consolesModal'));
-        modal.show();
-    });
+        modalConsolasList.innerHTML = `<ul>${listaConsolas}</ul>`;
+    } else {
+        modalConsolasList.innerHTML = '<p>No hay consolas compatibles cargadas para este juego aún.</p>';
+    }
+
+    let modal = new bootstrap.Modal(document.getElementById('consolesModal'));
+    modal.show();
 }
 
+function mostrarDLC(dlcs) {
+    let modalDlcList = document.getElementById('modal-dlc-list');
+    
+    if (dlcs && dlcs.length > 0) {
+        let listaDlcs = dlcs.map(dlc => `<li>${dlc.titulo}</li>`).join('');
+        modalDlcList.innerHTML = `<ul>${listaDlcs}</ul>`;
+    } else {
+        modalDlcList.innerHTML = '<p>No hay DLC cargados para este juego.</p>';
+    }
 
-function getDlcForGame(juegoId) {
-    return fetch(`http://localhost:3000/api/v1/juegos/${juegoId}/dlcs`)
-        .then(response => response.json());
+    let modal = new bootstrap.Modal(document.getElementById('dlcModal'));
+    modal.show();
 }
 
-function mostrarDLC(juegoId) {
-    getDlcForGame(juegoId).then(dlcs => {
-        console.log(dlcs); 
-        let listaDlcs= dlcs.map(dlc => `<li>${dlc.nombre}</li>`).join('');
-        document.getElementById('modal-dlc-list').innerHTML = `<ul>${listaDlcs}</ul>`;
-   
-        let modal = new bootstrap.Modal(document.getElementById('dlcModal'));
-        modal.show();
-    }).catch(error => {
-        console.error('Error fetching DLCs:', error);
-        document.getElementById('modal-dlc-list').innerHTML = '<p>No hay DLC cargados para este juego</p>';
-        let modal = new bootstrap.Modal(document.getElementById('dlcModal'));
-        modal.show();
-    });
-}
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("ver-consolas")) {
+        let consolas = JSON.parse(event.target.getAttribute("data-consolas"));
+        mostrarConsolas(consolas);
+    } else if (event.target.classList.contains("ver-dlc")) {
+        let dlcs = JSON.parse(event.target.getAttribute("data-dlcs"));
+        mostrarDLC(dlcs);
+    }
+});

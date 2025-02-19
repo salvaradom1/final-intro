@@ -25,7 +25,7 @@ function getDataConsolas() {
                                     <li class="list-group-item">Almacenamiento (GB): ${consola.almacenamiento}</li>
                                     <li class="list-group-item">Tipo: ${consola.tipo}</li>
                                     <li class="list-group-item">Juegos: 
-                                        <button class="btn btn-link-light" onclick="mostrarJuegos(${consola.id})">Ver compatibles</button>
+                                        <button class="btn btn-link-light ver-juegos" data-juegos='${JSON.stringify(consola.juego)}'>Ver compatibles</button>
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-start my-3"> 
@@ -50,22 +50,24 @@ function getDataConsolas() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-function getGamesForConsola(consolaId) {
-    return fetch(`http://localhost:3000/api/v1/consolas/${consolaId}/juegos`)
-        .then(response => response.json());
+
+function mostrarJuegos(juegos) {
+    let modalGamesList= document.getElementById('modal-games-list');
+    
+    if (juegos && juegos.length > 0) {
+        let listaJuegos = juegos.map(juego => `<li>${juego.titulo}</li>`).join('');
+        modalGamesList.innerHTML = `<ul>${listaJuegos}</ul>`;
+    } else {
+        modalGamesList.innerHTML = '<p>No hay juegos cargados para esta consola aún.</p>';
+    }
+
+    let modal = new bootstrap.Modal(document.getElementById('gamesModal'));
+    modal.show();
 }
 
-function mostrarJuegos(consolaId) {
-    getGamesForConsola(consolaId).then(games => {
-        let gamesList = games.map(game => `<li>${game.titulo}</li>`).join('');
-        document.getElementById('modal-games-list').innerHTML = `<ul>${gamesList}</ul>`;
-   
-        let modal = new bootstrap.Modal(document.getElementById('gamesModal'));
-        modal.show();
-        }).catch(error => {
-        console.error('Error fetching games:', error);
-        document.getElementById('modal-games-list').innerHTML = '<p> No hay juegos compatibles cargados para esta consola aún </p>';
-        let modal = new bootstrap.Modal(document.getElementById('gamesModal'));
-        modal.show();
-    });
-}
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("ver-juegos")) {
+        let juegos = JSON.parse(event.target.getAttribute("data-juegos"));
+        mostrarJuegos(juegos);  
+    }
+});

@@ -30,6 +30,25 @@ app.get("/busqueda.html", (req, res) => {
 
 // todo lo de aca arriba es para conectar el front con el back
 
+//busca las consolas relacionadas a juegos
+app.get('/api/v1/juegos/:id/consolas', async (req, res) => {
+  const juegoId = parseInt(req.params.id);
+
+  const juego = await prisma.juego.findUnique({
+    where: { id: juegoId },
+    include: {
+      consola: true, 
+    },
+  });
+
+  if (juego === null) {
+    res.sendStatus(404);
+    return;
+  }
+
+  res.json(juego.consola); 
+});
+
 //busca todas las consolas
 app.get('/api/v1/consolas', async (req, res) => {
   const consolas = await prisma.consola.findMany({
@@ -42,7 +61,7 @@ app.get('/api/v1/consolas', async (req, res) => {
 
 //busco una consola por titulo
 app.get('/api/v1/consolas/:nombre', async (req, res) => {
-  const consola = await prisma.juego.findFirst({
+  const consola = await prisma.consola.findFirst({
     where: {
       nombre: req.params.nombre
     },

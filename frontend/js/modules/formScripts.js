@@ -81,10 +81,12 @@ export function createGame() {
         titulo,
         descripcion,
         fecha_lanzamiento,
-        modo_de_juego: modosSeleccionados,
+        modoDeJuegoIds: modosSeleccionados,
         peso,
         consolaId : listaConsolas,
     };
+
+    console.log(modosSeleccionados);
 
     console.log("Datos del juego: ", juego);
 

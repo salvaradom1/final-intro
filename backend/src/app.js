@@ -84,8 +84,8 @@ app.post('/api/v1/consolas', async (req, res) => {
     data: {
       nombre: req.body.nombre,
       fecha_lanzamiento: req.body.fecha_lanzamiento ? new Date(req.body.fecha_lanzamiento) : null, //hay q ver si hace falta esto
-      desarrollador: req.body.desarrollador,
-      almacenamiento: req.body.almacenamiento,
+      desarrollador: req.body.desarrollador || "-",
+      almacenamiento: req.body.almacenamiento || 0,
       tipo: req.body.tipo,
       juego: {
         connect: req.body.juegoIds?.map(id => ({ id }))

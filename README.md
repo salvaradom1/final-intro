@@ -1,8 +1,8 @@
 # GameFinder API
 ### descripción
 
-GameFinder es una pagina web que proporcionar información sobre videojuegos, consolas y DLCs y a su vez permitiendo tambien que el cliente haga operaciones CRUD sobre cada uno.
-
+Game Finder es una API RESTFUL que permite al usuario actualizar y eliminar videojuegos, consolas y DLCs en la base de datos mediante solicitudes HTTP. Facilita la administración de videojuegos, proporcionando datos detallados sobre cada entidad.
+ 
 ### Integrantes:
  
  - Sofia Alvarado

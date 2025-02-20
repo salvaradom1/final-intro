@@ -72,12 +72,3 @@ npx prisma migrate dev
 npm run dev
 ```
 
-8. Levantar el servidor del Frontend (en una terminal aparte):
-
-```bash
-cd <direccion-repositorio>
-cd Frontend
-npm install
-npm run start
-
-```

@@ -22,7 +22,7 @@ function getDataJuegos() {
                             <h4 class="card-title text-center fw-bold text">${juego.titulo}</h4>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Descripcion: ${juego.descripcion}</li>
-                                <li class="list-group-item">Modo de Juego: ${juego.modo_de_juego.nombre}</li>
+                                <li class="list-group-item">Modo de Juego: ${juego.modo_de_juego.map(m => m.nombre).join(", ")}</li>
                                 <li class="list-group-item">Fecha de lanzamiento: ${fechaFormateada}</li>
                                 <li class="list-group-item">Peso: ${juego.peso} GB</li>    
                                 <li class="list-group-item">Consolas: 
@@ -132,4 +132,3 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error eliminando juego:", error));
     });
 });
-

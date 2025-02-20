@@ -1,13 +1,7 @@
-export function limpiarConsola() {
-    document.getElementById('limpiarForm').addEventListener('click', function() {
-        document.getElementById('consoleForm').reset();
-    });
-};
-
-document.addEventListener("DOMContentLoaded", async function () {
-    const dropdownMenu = document.querySelector(".dropdown-menu"); 
-    const searchInput = document.getElementById("searchInput");
-    const dropdownButton = document.getElementById("dropdownMenuButton");
+export async function cargarJuegos(menuId, buttonId, searchId) {
+    const dropdownMenu = document.getElementById(menuId);
+    const searchInput = document.getElementById(searchId);
+    const dropdownButton = document.getElementById(buttonId);
 
     try {
         const response = await fetch("http://localhost:3000/api/v1/juegos");
@@ -25,7 +19,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         new bootstrap.Dropdown(dropdownButton);
-
     } catch (error) {
         console.error("Error al obtener juegos:", error);
     }
@@ -46,9 +39,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     dropdownMenu.addEventListener("click", function (event) {
-        event.stopPropagation(); 
+        event.stopPropagation();
     });
-});
+}
 
 export function createConsole() {
     const nombre = document.getElementById('name').value; 

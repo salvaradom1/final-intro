@@ -1,5 +1,10 @@
-import { limpiarConsola } from './modules/scriptForms.js'
-import { createConsole } from './modules/scriptForms.js'; 
+import { createConsole } from './modules/formScripts.js';
+import { limpiarFormulario } from './modules/formUtils.js';
+import { cargarJuegos } from './modules/formUtils.js';
 
-limpiarConsola();
-document.getElementById("submit").addEventListener("click", createConsole);
+if (document.getElementById("consoleForm")) {
+    limpiarFormulario("consoleForm", "limpiarForm");
+    cargarJuegos("dropdownMenuConsole", "dropdownMenuButtonConsole", "searchInputConsole");
+
+    document.getElementById("submit-consola").addEventListener("click", createConsole);
+}

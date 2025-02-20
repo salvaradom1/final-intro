@@ -1,4 +1,5 @@
 export function createConsole() {
+
     const nombre = document.getElementById('name').value; 
     const fecha_lanzamiento = document.getElementById('releaseDate').value; 
     const desarrollador = document.getElementById('developer').value; 
@@ -33,6 +34,7 @@ export function createConsole() {
         }
     });
 };
+
 
 export function createDLC() {
     const titulo = document.getElementById('Title').value;

@@ -1,48 +1,3 @@
-export async function cargarJuegos(menuId, buttonId, searchId) {
-    const dropdownMenu = document.getElementById(menuId);
-    const searchInput = document.getElementById(searchId);
-    const dropdownButton = document.getElementById(buttonId);
-
-    try {
-        const response = await fetch("http://localhost:3000/api/v1/juegos");
-        const juegos = await response.json();
-        console.log("Juegos cargados:", juegos);
-
-        juegos.forEach(juego => {
-            const listItem = document.createElement("li");
-            listItem.innerHTML = `
-                <label class="dropdown-item">
-                    <input type="checkbox" name="juegos" value="${juego.id}"> ${juego.titulo}
-                </label>
-            `;
-            dropdownMenu.appendChild(listItem);
-        });
-
-        new bootstrap.Dropdown(dropdownButton);
-    } catch (error) {
-        console.error("Error al obtener juegos:", error);
-    }
-
-    searchInput.addEventListener("input", function () {
-        const searchText = searchInput.value.toLowerCase();
-        document.querySelectorAll(".dropdown-item").forEach(item => {
-            const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(searchText) ? "" : "none";
-        });
-    });
-
-    dropdownButton.addEventListener("click", function () {
-        const isShown = dropdownMenu.classList.contains("show");
-        if (!isShown) {
-            new bootstrap.Dropdown(dropdownButton).toggle();
-        }
-    });
-
-    dropdownMenu.addEventListener("click", function (event) {
-        event.stopPropagation();
-    });
-}
-
 export function createConsole() {
     const nombre = document.getElementById('name').value; 
     const fecha_lanzamiento = document.getElementById('releaseDate').value; 
@@ -75,6 +30,39 @@ export function createConsole() {
             clearForm();
         } else {
             alert('Hubo un error al agregar la consola');
+        }
+    });
+};
+
+export function createDLC() {
+    const titulo = document.getElementById('Title').value;
+    const descripcion = document.getElementById('Description').value; 
+    const fecha_lanzamiento = document.getElementById('ReleaseDate').value; 
+    const peso = document.getElementById('Size').value; 
+    const juego = parseInt(document.querySelector("input[name='juegos']:checked")?.value);
+
+    const dlc = {
+        juegoId : juego,
+        titulo,
+        descripcion,
+        fecha_lanzamiento,
+        peso,
+    };
+
+    console.log("Datos del dlc: ", dlc);
+
+    fetch('http://localhost:3000/api/v1/dlcs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dlc)
+    }).then(response => {
+        if (response.status === 201) {
+            alert('DLC agregado exitosamente');
+            clearForm();
+        } else {
+            alert('Hubo un error al agregar el DLC');
         }
     });
 };

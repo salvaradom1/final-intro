@@ -4,7 +4,7 @@ export function limpiarFormulario(formId, buttonId) {
     });
 };
 
-export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInputId) {
+export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInputId, seleccionUnica = false) {
     const dropdownMenu = document.getElementById(dropdownMenuId);
     const searchInput = document.getElementById(searchInputId);
     const dropdownButton = document.getElementById(dropdownButtonId);
@@ -18,14 +18,25 @@ export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInput
             const listItem = document.createElement("li");
             listItem.innerHTML = `
                 <label class="dropdown-item">
-                    <input type="checkbox" name="juegos" value="${juego.id}"> ${juego.titulo}
+                    <input type="checkbox" name="juegos" value="${juego.id}" class="juego-checkbox"> ${juego.titulo}
                 </label>
             `;
             dropdownMenu.appendChild(listItem);
         });
 
-        new bootstrap.Dropdown(dropdownButton);
+        if (seleccionUnica) {
+            dropdownMenu.addEventListener("change", function (event) {
+                if (event.target.classList.contains("juego-checkbox")) {
+                    document.querySelectorAll(`#${dropdownMenuId} .juego-checkbox`).forEach(checkbox => {
+                        if (checkbox !== event.target) {
+                            checkbox.checked = false;
+                        }
+                    });
+                }
+            });
+        }
 
+        new bootstrap.Dropdown(dropdownButton);
     } catch (error) {
         console.error("Error al obtener juegos:", error);
     }
@@ -38,7 +49,14 @@ export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInput
         });
     });
 
+    dropdownButton.addEventListener("click", function () {
+        const isShown = dropdownMenu.classList.contains("show");
+        if (!isShown) {
+            new bootstrap.Dropdown(dropdownButton).toggle();
+        }
+    });
+
     dropdownMenu.addEventListener("click", function (event) {
-        event.stopPropagation();
+        event.stopPropagation(); 
     });
 }

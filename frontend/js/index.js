@@ -1,18 +1,23 @@
-import { createConsole } from './modules/formScripts.js';
-import { limpiarFormulario } from './modules/formUtils.js';
-import { cargarJuegos } from './modules/formUtils.js';
-import { createDLC } from './modules/formScripts.js';
+import { createConsole, createDLC, createGame } from './modules/formScripts.js';
+import { limpiarFormulario, cargarOpciones } from './modules/formUtils.js';
 
 if (document.getElementById("consoleForm")) {
     limpiarFormulario("consoleForm", "limpiarForm");
-    cargarJuegos("dropdownMenuConsole", "dropdownMenuButtonConsole", "searchInputConsole");
+    cargarOpciones("juegos", "dropdownMenuConsole", "dropdownMenuButtonConsole", "searchInputConsole");
 
     document.getElementById("submit-consola").addEventListener("click", createConsole);
 }
 
 if (document.getElementById("dlcForm")) {
     limpiarFormulario("dlcForm", "limpiarDLCForm");
-    cargarJuegos("dropdownMenuDLC", "dropdownMenuButtonDLC", "searchInputDLC", true);
+    cargarOpciones("juegos", "dropdownMenuDLC", "dropdownMenuButtonDLC", "searchInputDLC", true);
 
     document.getElementById("submitDLC").addEventListener("click", createDLC);
-};
+}
+
+if (document.getElementById("juegosForm")) {
+    limpiarFormulario("juegosForm", "limpiarJuegosForm");
+    cargarOpciones("consolas", "dropdownMenuJuego1", "dropdownMenuButtonJuego1", "searchInputJuego1");
+
+    document.getElementById("submit-juego").addEventListener("click", createGame);
+}

@@ -4,30 +4,33 @@ export function limpiarFormulario(formId, buttonId) {
     });
 };
 
-export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInputId, seleccionUnica = false) {
+export async function cargarOpciones(endpoint, dropdownMenuId, dropdownButtonId, searchInputId, seleccionUnica = false) {
     const dropdownMenu = document.getElementById(dropdownMenuId);
-    const searchInput = document.getElementById(searchInputId);
     const dropdownButton = document.getElementById(dropdownButtonId);
 
     try {
-        const response = await fetch("http://localhost:3000/api/v1/juegos");
-        const juegos = await response.json();
-        console.log("Juegos cargados:", juegos);
+        const response = await fetch(`http://localhost:3000/api/v1/${endpoint}`);
+        const opciones = await response.json();
 
-        juegos.forEach(juego => {
+        dropdownMenu.innerHTML = `<input type="text" class="form-control mb-2" id="${searchInputId}" placeholder="Buscar...">`;
+
+        const searchInput = document.getElementById(searchInputId); 
+
+        opciones.forEach(opcion => {
+            const nombre = opcion.nombre || opcion.titulo;
             const listItem = document.createElement("li");
             listItem.innerHTML = `
                 <label class="dropdown-item">
-                    <input type="checkbox" name="juegos" value="${juego.id}" class="juego-checkbox"> ${juego.titulo}
+                    <input type="checkbox" value="${opcion.id}" class="opcion-checkbox"> ${nombre}
                 </label>
             `;
-            dropdownMenu.appendChild(listItem);
+            dropdownMenu.appendChild(listItem); 
         });
 
         if (seleccionUnica) {
             dropdownMenu.addEventListener("change", function (event) {
-                if (event.target.classList.contains("juego-checkbox")) {
-                    document.querySelectorAll(`#${dropdownMenuId} .juego-checkbox`).forEach(checkbox => {
+                if (event.target.classList.contains("opcion-checkbox")) {
+                    document.querySelectorAll(`#${dropdownMenuId} .opcion-checkbox`).forEach(checkbox => {
                         if (checkbox !== event.target) {
                             checkbox.checked = false;
                         }
@@ -36,18 +39,18 @@ export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInput
             });
         }
 
+        searchInput.addEventListener("input", function () {
+            const searchText = searchInput.value.toLowerCase();
+            document.querySelectorAll(`#${dropdownMenuId} .dropdown-item`).forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(searchText) ? "" : "none";
+            });
+        });
+
         new bootstrap.Dropdown(dropdownButton);
     } catch (error) {
-        console.error("Error al obtener juegos:", error);
+        console.error(`Error al obtener ${endpoint}:`, error);
     }
-
-    searchInput.addEventListener("input", function () {
-        const searchText = searchInput.value.toLowerCase();
-        document.querySelectorAll(".dropdown-item").forEach(item => {
-            const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(searchText) ? "" : "none";
-        });
-    });
 
     dropdownButton.addEventListener("click", function () {
         const isShown = dropdownMenu.classList.contains("show");
@@ -57,6 +60,6 @@ export async function cargarJuegos(dropdownMenuId, dropdownButtonId, searchInput
     });
 
     dropdownMenu.addEventListener("click", function (event) {
-        event.stopPropagation(); 
+        event.stopPropagation();
     });
-}
+};

@@ -66,3 +66,40 @@ export function createDLC() {
         }
     });
 };
+
+export function createGame() {
+    const titulo = document.getElementById('title').value;
+    const descripcion = document.getElementById('description').value; 
+    const fecha_lanzamiento = document.getElementById('releaseDate').value; 
+    const peso = document.getElementById('size').value; 
+    const listaConsolas = Array.from(document.querySelectorAll(".dropdown-menu-consolas .opcion-checkbox:checked"))
+    .map(input => parseInt(input.value));
+    const modosSeleccionados = Array.from(document.querySelectorAll('input[name="modos"]:checked'))
+    .map(input => parseInt(input.value));
+
+    const juego = {
+        titulo,
+        descripcion,
+        fecha_lanzamiento,
+        modo_de_juego: modosSeleccionados,
+        peso,
+        consolaId : listaConsolas,
+    };
+
+    console.log("Datos del juego: ", juego);
+
+    fetch('http://localhost:3000/api/v1/juegos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(juego)
+    }).then(response => {
+        if (response.status === 201) {
+            alert('Juego agregado exitosamente');
+            clearForm();
+        } else {
+            alert('Hubo un error al agregar el juego');
+        }
+    });
+};

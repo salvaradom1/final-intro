@@ -16,7 +16,7 @@ Game Finder es una API RESTFUL que permite al usuario actualizar y eliminar vide
 
 ### Herramientas utilizadas
 
-- Frontend: bootstrap
+- Frontend: Bootstrap, HTML, CSS, JavaScript
 - Backend: Bruno, Prisma
 - DevOps: Docker Compose
 

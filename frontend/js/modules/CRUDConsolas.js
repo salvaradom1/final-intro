@@ -30,7 +30,7 @@ function getDataConsolas() {
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-end my-3"> 
-                                        <button class="btn btn-light ms-3" type="button" onclick="editarConsola()">
+                                        <button class="btn btn-light ms-3 editConsoleButton" type="button" data-id="${consola.id}">
                                             <svg class="icon bi" width="16" height="16" fill="currentColor">
                                                 <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
                                             </svg>

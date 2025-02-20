@@ -34,19 +34,6 @@ export function createConsole() {
     });
 };
 
-function getSelectedGameId() {
-    const checkboxes = document.querySelectorAll('#dropdownMenuDLC .opcion-checkbox');
-    let selectedGameId = null;
-
-    checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            selectedGameId = checkbox.value;
-        }
-    });
-
-    return selectedGameId;
-};
-
 export function createDLC() {
     const titulo = document.getElementById('Title').value;
     const descripcion = document.getElementById('Description').value; 
@@ -94,12 +81,10 @@ export function createGame() {
         titulo,
         descripcion,
         fecha_lanzamiento,
-        modoDeJuegoIds: modosSeleccionados,
+        modo_de_juego: modosSeleccionados,
         peso,
         consolaId : listaConsolas,
     };
-
-    console.log(modosSeleccionados);
 
     console.log("Datos del juego: ", juego);
 

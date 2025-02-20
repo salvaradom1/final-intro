@@ -53,20 +53,24 @@ cp .example.env .env
 ```bash
 npm install
 ```
-
-5. Generar el cliente de Prisma:
+5. levantar PostgreSQL con Docker Compose:
+   
+```bash
+docker compose up -d
+```
+6. Generar el cliente de Prisma:
 
 ```bash
 npx prisma generate
 ```
 
-6. Aplicar las migraciones para crear las tablas en la base de datos:
+7. Aplicar las migraciones para crear las tablas en la base de datos:
 
 ```bash
 npx prisma migrate dev
 ```
 
-7. Levantar el servidor del Backend:
+8. Levantar el servidor del Backend:
 
 ```bash
 npm run dev

@@ -34,6 +34,19 @@ export function createConsole() {
     });
 };
 
+function getSelectedGameId() {
+    const checkboxes = document.querySelectorAll('#dropdownMenuDLC .opcion-checkbox');
+    let selectedGameId = null;
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedGameId = checkbox.value;
+        }
+    });
+
+    return selectedGameId;
+};
+
 export function createDLC() {
     const titulo = document.getElementById('Title').value;
     const descripcion = document.getElementById('Description').value; 

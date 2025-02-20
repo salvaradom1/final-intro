@@ -54,10 +54,10 @@
               <h2 class="mb-3 text-center">Agregar Juego</h2>
               <p class="text-center text-muted">(Los campos con <span class="obligatorio">*</span> son obligatorios)</p>
               
-              <form id="consoleForm">
+              <form id="juegosForm">
                   <div class="mb-3">
                       <label for="name" class="form-label fw-bold">Título<span class="obligatorio"> *</span></label>
-                      <input type="text" class="form-control" id="name" name="name" required>
+                      <input type="text" class="form-control" id="title" name="title" required>
                   </div>
   
                   <div class="mb-3">
@@ -73,53 +73,37 @@
                   <div class="mb-3">
                     <label class="form-label fw-bold">Modos de juego<span class="obligatorio"> *</span></label>
                     <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButtonModos" data-bs-toggle="dropdown" aria-expanded="false">
                             Seleccionar
                         </button>
                         <ul class="dropdown-menu dropdown-menu-modos w-100 p-2" aria-labelledby="dropdownMenuButton">
-                            <li><label class="dropdown-item"><input type="checkbox" value="Un jugador"> Un jugador</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="Multijugador"> Multijugador</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" name="modos" value="1""> Un jugador</label></li>
+                            <li><label class="dropdown-item"><input type="checkbox" name="modos" value="2"> Multijugador</label></li>
                         </ul>
                     </div>
                 </div>
 
                   <div class="mb-3">
                       <label for="storage" class="form-label fw-bold">Peso <span class="obligatorio">*</span></label>
-                      <input type="text" class="form-control" id="storage" name="storage" placeholder="Ej: 12 GB" required>
+                      <input type="text" class="form-control" id="size" name="size" placeholder="Ej: 12 GB" required>
                   </div>
   
                   <div class="mb-3">
                     <label class="form-label fw-bold">Consolas compatibles <span class="obligatorio">*</span></label>
                     <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButtonConsolas" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButtonJuego1" data-bs-toggle="dropdown" aria-expanded="false">
                             Seleccionar consolas
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-consolas w-100 p-2" aria-labelledby="dropdownMenuButtonConsolas">
-                            <input type="text" class="form-control mb-2" id="searchInputConsolas" placeholder="Buscar consola...">
-                            <li><label class="dropdown-item"><input type="checkbox" value="PC"> PC</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="PS4"> PS4</label></li>
-                            <li><label class="dropdown-item"><input type="checkbox" value="Nintendo Switch"> Nintendo Switch</label></li>
+                        <ul class="dropdown-menu dropdown-menu-consolas w-100 p-2" id="dropdownMenuJuego1">
+                            <input type="text" class="form-control mb-2" placeholder="Buscar consola...">
+            
                         </ul>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                  <label class="form-label fw-bold">DLC</label>
-                  <div class="dropdown">
-                      <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButtonDLC" data-bs-toggle="dropdown" aria-expanded="false">
-                          Buscar DLC
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-dlc w-100 p-2" aria-labelledby="dropdownMenuButtonDLC">
-                          <input type="text" class="form-control mb-2" id="searchInputDLC" placeholder="Buscar DLC...">
-                          <li><label class="dropdown-item"><input type="checkbox" value="DLC 1"> DLC 1</label></li>
-                          <li><label class="dropdown-item"><input type="checkbox" value="DLC 2"> DLC 2</label></li>
-                          <li><label class="dropdown-item"><input type="checkbox" value="DLC 3"> DLC 3</label></li>                          
-                        </ul>
-                    </div>
-                  </div>
                   <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-light">Enviar</button>
-                    <button type="button" class="btn btn-outline-danger" id="limpiarForm">Limpiar</button>
+                    <button type="submit" class="btn btn-light" id="submit-juego">Enviar</button>
+                    <button type="button" class="btn btn-outline-danger" id="limpiarJuegosForm">Limpiar</button>
                 </div>
               </form>
           </div>

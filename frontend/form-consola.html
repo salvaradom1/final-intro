@@ -86,27 +86,29 @@
                   </div>
   
                   <div class="mb-3">
-                    <label class="form-label fw-bold">Juegos compatibles</label>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Seleccionar juegos
-                        </button>
-                        <ul class="dropdown-menu w-100 p-2" aria-labelledby="dropdownMenuButton">
-                          <li>
-                            <input type="text" class="form-control mb-2" id="searchInput" placeholder="Buscar juego...">
-                          </li>
-
-                        </ul>
-                    </div>
+                      <label class="form-label fw-bold">Juegos compatibles</label>
+                      <div class="dropdown">
+                          <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" 
+                              id="dropdownMenuButtonConsole" data-bs-toggle="dropdown" aria-expanded="false">
+                              Seleccionar juegos
+                          </button>
+                          <ul class="dropdown-menu w-100 p-2" id="dropdownMenuConsole" aria-labelledby="dropdownMenuButtonConsole">
+                              <li>
+                                  <input type="text" class="form-control mb-2" id="searchInputConsole" placeholder="Buscar juego...">
+                              </li>
+                          </ul>
+                      </div>
                   </div>
+  
                   <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" id="submit-consola" class="btn btn-light">Enviar</button>
-                    <button type="button" class="btn btn-outline-danger" id="limpiarForm">Limpiar</button>
-                </div>
+                      <button type="submit" id="submit-consola" class="btn btn-light">Enviar</button>
+                      <button type="button" class="btn btn-outline-danger" id="limpiarForm">Limpiar</button>
+                  </div>
               </form> 
           </div>
       </div>
-  </section>
+    </section>  
+  
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/index.js" type="module"></script>

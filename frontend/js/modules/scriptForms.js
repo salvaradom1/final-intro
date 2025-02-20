@@ -2,7 +2,7 @@ export function limpiarConsola() {
     document.getElementById('limpiarForm').addEventListener('click', function() {
         document.getElementById('consoleForm').reset();
     });
-}
+};
 
 document.addEventListener("DOMContentLoaded", async function () {
     const dropdownMenu = document.querySelector(".dropdown-menu"); 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         new bootstrap.Dropdown(dropdownButton);
-        
+
     } catch (error) {
         console.error("Error al obtener juegos:", error);
     }

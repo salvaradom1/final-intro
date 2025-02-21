@@ -63,3 +63,4 @@ export async function cargarOpciones(endpoint, dropdownMenuId, dropdownButtonId,
         event.stopPropagation();
     });
 };
+

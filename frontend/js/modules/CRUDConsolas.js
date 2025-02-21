@@ -30,7 +30,7 @@ function getDataConsolas() {
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-end my-3"> 
-                                        <button class="btn btn-light ms-3" type="button" onclick="editarConsola()">
+                                        <button class="btn btn-light ms-3 editConsoleButton" type="button" data-id="${consola.id}">
                                             <svg class="icon bi" width="16" height="16" fill="currentColor">
                                                 <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
                                             </svg>
@@ -112,3 +112,86 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error eliminando consola:", error));
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.addEventListener("click", function (event) {
+        const button = event.target.closest(".editConsoleButton");
+        if (button) {
+            const consoleId = parseInt(button.getAttribute("data-id"));
+
+            console.log("Intentando obtener consola con ID:", consoleId);
+
+            fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Consola con ID ${consoleId} no encontrada`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Consola obtenida:", data); 
+
+                    document.getElementById("editConsoleId").value = data.data.id;
+                    document.getElementById("editConsoleName").value = data.data.nombre;
+                    document.getElementById("editConsoleReleaseDate").value = data.data.fecha_lanzamiento.split("T")[0];
+                    document.getElementById("editConsoleDeveloper").value = data.data.desarrollador;
+                    document.getElementById("editConsoleStorage").value = data.data.almacenamiento;
+                    document.getElementById("editConsoleType").value = data.data.tipo;
+
+                    const modal = new bootstrap.Modal(document.getElementById("modalEditConsole"));
+                    modal.show();
+                })
+                .catch(error => {
+                    console.error("Error al obtener la consola:", error);
+                    alert("Hubo un problema al cargar la consola.");
+                });
+        }
+    });
+
+    document.getElementById("editConsoleForm").addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        const consoleId = document.getElementById("editConsoleId").value;
+
+        const updatedConsole = {
+            nombre: document.getElementById("editConsoleName").value,
+            fecha_lanzamiento: document.getElementById("editConsoleReleaseDate").value,
+            desarrollador: document.getElementById("editConsoleDeveloper").value,
+            almacenamiento: document.getElementById("editConsoleStorage").value,
+            tipo: document.getElementById("editConsoleType").value
+        };
+
+        console.log("Enviando actualización para consola con ID:", consoleId, updatedConsole);
+
+        fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedConsole)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al actualizar la consola con ID ${consoleId}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Consola actualizada con éxito:", data);
+            alert("Consola actualizada correctamente");
+
+            const modalInstance = bootstrap.Modal.getInstance(document.getElementById("modalEditConsole"));
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+
+            getDataConsolas();
+        })
+        .catch(error => {
+            console.error(" Error al actualizar la consola:", error);
+            alert("Hubo un problema al actualizar la consola.");
+        });
+    });
+});
+

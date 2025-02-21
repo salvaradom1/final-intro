@@ -48,32 +48,51 @@
             </div>
           </div>
     </section>
-        
-    <section id="hero" class="py-3">
-      <div class="container text-center text-md-start">
-          <div class="row align-items-center">
-              <div class="col-md-6 mb-4 mb-md-0">
-                  <h1 class="display-5 fw-bold text-light">Game Finder</h1>
-                  <p class="lead mb-3">La API para leer, guardar y gestionar información sobre juegos, consolas y DLCs.</p>
-                  <div class="d-grid gap-2 d-md-flex">
-                      <a href="api-docs.html" class="btn btn-light btn-lg px-3 py-2 me-2">Ver API Docs</a>
-                      <a href="juegos.html" class="btn btn-outline-light btn-lg px-3 py-2">Explorar Juegos</a>
-                  </div>
+
+    <section id="info">
+        <div class="container">
+        <div class="my-2">
+            <div class="p-5 text-center">
+              <div class="container py-4">
+                <h1 class="text-body-emphasis">API Docs: GameFinder</h1>
+                <p class="col-lg-8 mx-auto lead">
+                    Esta API REST permite gestionar información sobre juegos, consolas y DLCs relacionados. Cada entidad tiene sus propias operaciones CRUD, y las entidades están interrelacionadas, lo que permite consultar y actualizar relaciones entre juegos y consolas, así como juegos y DLCs.
+                </p>
               </div>
-              <div class="col-md-6 text-center">
-                  <img src="assets/—Pngtree—gaming controller 3d illustration changeable_6284202.png" 
-                       class="img-fluid" alt="control 3D" style="max-width: 60%; height: auto;">
+            </div>
+          </div>
+          <hr/>
+          <div class="container px-4 py-3" id="icon-grid">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#bullseye" fill="currentColor"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">/GET</h3>
+                  <p>Solicita a la base de datos la información almacenada de cada endpoint.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#mailbox-flag" fill="currentColor"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">/POST</h3>
+                  <p>Permite cargar a la base de datos un juego, consola o DLC.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil" fill="currentColor"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">/PUT</h3>
+                  <p>Permite editar información existente.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#trash" fill="currentColor"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">/DELETE</h3>
+                  <p>Elimina la información solictada.</p>
+                </div>
               </div>
           </div>
-      </div>
-    </section>
-    <section id="carousel">
-      <div class="container">
-
-    </section>
-
-    <section id="footer">
-
     </section>
     <script src="js/index.js" type="module"></script>
 </body>

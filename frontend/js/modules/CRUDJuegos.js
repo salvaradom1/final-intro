@@ -33,7 +33,7 @@ function getDataJuegos() {
                                 </li>
                             </ul>
                              <div class="d-flex justify-content-end my-3"> 
-                                <button class="btn btn-light ms-3 editGameButton" type="button">
+                                <button class="btn btn-light ms-3 editGameButton" type="button" data-id="${juego.id}">
                                     <svg class="icon bi" width="16" height="16" fill="currentColor">
                                         <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
                                     </svg>

@@ -114,7 +114,74 @@
           </div>
       </div>
     </div>
-    
+  
+    <!-- Modal para Editar Juego -->
+    <div class="modal fade" id="modalEditGame" tabindex="-1" aria-labelledby="modalEditGameLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modalEditGameLabel">Editar Juego</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <input type="hidden" id="editGameId">
+
+                  <form id="editGameForm">
+                      <div class="mb-3">
+                          <label for="editGameTitle" class="form-label fw-bold">Título <span class="obligatorio">*</span></label>
+                          <input type="text" class="form-control" id="editGameTitle" required>
+                      </div>
+
+                      <div class="mb-3">
+                          <label for="editGameDescription" class="form-label fw-bold">Descripción <span class="obligatorio">*</span></label>
+                          <input type="text" class="form-control" id="editGameDescription" required>
+                      </div>
+
+                      <div class="mb-3">
+                          <label for="editGameReleaseDate" class="form-label fw-bold">Fecha de lanzamiento <span class="obligatorio">*</span></label>
+                          <input type="date" class="form-control" id="editGameReleaseDate" required>
+                      </div>
+
+                      <div class="mb-3">
+                          <label class="form-label fw-bold">Modos de juego <span class="obligatorio">*</span></label>
+                          <div class="dropdown">
+                              <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButtonModosEdit" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Seleccionar
+                              </button>
+                              <ul class="dropdown-menu w-100 p-2">
+                                  <li><label class="dropdown-item"><input type="checkbox" name="modos" value="1"> Un jugador</label></li>
+                                  <li><label class="dropdown-item"><input type="checkbox" name="modos" value="2"> Multijugador</label></li>
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div class="mb-3">
+                          <label for="editGameSize" class="form-label fw-bold">Peso <span class="obligatorio">*</span></label>
+                          <input type="text" class="form-control" id="editGameSize" required>
+                      </div>
+
+                      <div class="mb-3">
+                          <label class="form-label fw-bold">Consolas compatibles <span class="obligatorio">*</span></label>
+                          <div class="dropdown">
+                              <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButtonJuegoEdit" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Seleccionar consolas
+                              </button>
+                              <ul class="dropdown-menu w-100 p-2" id="dropdownMenuJuegoEdit">
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div class="d-flex justify-content-between mt-4">
+                          <button type="submit" class="btn btn-light">Guardar cambios</button>
+                          <button type="button" class="btn btn-outline-danger" id="limpiarEditGameForm">Limpiar</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/modules/CRUDJuegos.js"></script>
 </body>

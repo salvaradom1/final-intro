@@ -1,11 +1,11 @@
 import { createConsole, createDLC, createGame } from './modules/formScripts.js';
 import { limpiarFormulario, cargarOpciones } from './modules/formUtils.js';
 
-if (document.getElementById("consoleForm")) {
-    limpiarFormulario("consoleForm", "limpiarForm");
+if (document.getElementById("ConsoleForm")) {
+    limpiarFormulario("ConsoleForm", "limpiarForm");
     cargarOpciones("juegos", "dropdownMenuConsole", "dropdownMenuButtonConsole", "searchInputConsole");
 
-    document.getElementById("consoleForm").addEventListener("submit", function (event) {
+    document.getElementById("ConsoleForm").addEventListener("submit", function (event) {
         event.preventDefault(); 
 
         if (this.checkValidity()) {

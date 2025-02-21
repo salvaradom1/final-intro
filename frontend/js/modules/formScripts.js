@@ -1,11 +1,10 @@
 export function createConsole() {
-
     const nombre = document.getElementById('name').value; 
     const fecha_lanzamiento = document.getElementById('releaseDate').value; 
     const desarrollador = document.getElementById('developer').value; 
     const almacenamiento = parseFloat(document.getElementById('storage').value); 
     const tipo = document.getElementById('type').value; 
-    const listaJuegos = Array.from(document.querySelectorAll("input[name='juegos']:checked"))
+    const listaJuegos = Array.from(document.querySelectorAll(".opcion-checkbox:checked"))
     .map(input => parseInt(input.value));
 
     const consola = {

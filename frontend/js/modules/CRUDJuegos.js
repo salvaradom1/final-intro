@@ -33,7 +33,7 @@ function getDataJuegos() {
                                 </li>
                             </ul>
                              <div class="d-flex justify-content-end my-3"> 
-                                <button class="btn btn-light ms-3" type="button">
+                                <button class="btn btn-light ms-3 editGameButton" type="button">
                                     <svg class="icon bi" width="16" height="16" fill="currentColor">
                                         <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
                                     </svg>
@@ -130,5 +130,95 @@ document.addEventListener("DOMContentLoaded", function () {
             getDataJuegos();
         })
         .catch(error => console.error("Error eliminando juego:", error));
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("click", async function (event) {
+        const button = event.target.closest(".editGameButton");
+        if (button) {
+            const gameId = parseInt(button.getAttribute("data-id"));
+            console.log("Intentando obtener juego con ID:", gameId);
+
+            try {
+                const data = await fetch(`http://localhost:3000/api/v1/juegos/${gameId}`).then(res => res.json());
+                console.log("Juego obtenido:", data);
+
+                const dropdownMenu = document.getElementById("dropdownMenuJuegoEdit");
+                dropdownMenu.innerHTML = ""; 
+
+                const response = await fetch("http://localhost:3000/api/v1/consolas");
+                if (!response.ok) throw new Error("Error al obtener consolas");
+                const consolas = await response.json();
+
+                consolas.forEach(consola => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `
+                        <label class="dropdown-item">
+                            <input type="checkbox" value="${consola.id}" class="opcion-checkbox"> ${consola.nombre}
+                        </label>
+                    `;
+                    dropdownMenu.appendChild(listItem);
+                });
+
+                document.getElementById("editGameId").value = data.id;
+                document.getElementById("editGameTitle").value = data.titulo;
+                document.getElementById("editGameDescription").value = data.descripcion;
+                document.getElementById("editGameReleaseDate").value = data.fecha_lanzamiento.split('T')[0];
+                document.getElementById("editGameSize").value = data.peso;
+
+                const modosCheckboxes = document.querySelectorAll("input[name='modos']");
+                modosCheckboxes.forEach(checkbox => {
+                    checkbox.checked = data.modo_de_juego.some(m => m.id === parseInt(checkbox.value));
+                });
+
+                const modal = new bootstrap.Modal(document.getElementById("modalEditGame"));
+                modal.show();
+            } catch (error) {
+                console.error("Error al obtener el juego:", error);
+                alert("Hubo un problema al cargar el juego.");
+            }
+        }
+    });
+
+    document.getElementById("editGameForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const gameId = document.getElementById("editGameId").value;
+
+        const updatedGame = {
+            titulo: document.getElementById("editGameTitle").value,
+            descripcion: document.getElementById("editGameDescription").value,
+            fecha_lanzamiento: document.getElementById("editGameReleaseDate").value,
+            peso: document.getElementById("editGameSize").value,
+            consolaIds: Array.from(document.querySelectorAll("#dropdownMenuJuegoEdit .opcion-checkbox:checked"))
+                .map(input => parseInt(input.value)),
+            modoDeJuegoIds: Array.from(document.querySelectorAll("input[name='modos']:checked"))
+                .map(input => parseInt(input.value))
+        };
+
+        console.log("Enviando actualización para juego con ID:", gameId, updatedGame);
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/v1/juegos/${gameId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedGame)
+            });
+
+            if (!response.ok) throw new Error(`Error al actualizar el juego con ID ${gameId}`);
+
+            const data = await response.json();
+            console.log("Juego actualizado con éxito:", data);
+            alert("Juego actualizado correctamente");
+
+            const modalInstance = bootstrap.Modal.getInstance(document.getElementById("modalEditGame"));
+            if (modalInstance) modalInstance.hide();
+
+            getDataJuegos();
+        } catch (error) {
+            console.error("Error al actualizar el juego:", error);
+            alert("Hubo un problema al actualizar el juego.");
+        }
     });
 });

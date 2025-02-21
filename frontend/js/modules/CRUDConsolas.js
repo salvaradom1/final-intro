@@ -144,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     dropdownMenu.appendChild(listItem);
                 });
 
-
                 document.getElementById("editConsoleId").value = data.id;
                 document.getElementById("editConsoleName").value = data.nombre;
                 document.getElementById("editConsoleReleaseDate").value = data.fecha_lanzamiento.split('T')[0];

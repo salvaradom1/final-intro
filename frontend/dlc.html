@@ -63,7 +63,11 @@
     </section>
 
     <section id="footer">
-        
+      <div class="container">
+        <p class="float-end py-6">
+          <a href="#" class="text-light">Back to top</a>
+        </p>
+      </div>
     </section>
 
         <!-- Pop up eliminar DLC -->
@@ -81,6 +85,60 @@
               </div>
           </div>
         </div>
+
+    <!-- Modal para Editar DLC-->
+    <div class="modal fade" id="modalEditDLC" tabindex="-1" aria-labelledby="modalEditDLCLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modalEditDLCLabel">Editar DLC</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <input type="hidden" id="editDLCId">
+
+                  <form id="editDlcForm">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Juego</label>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle w-100" id="dropdownMenuButtonEditDlc" data-bs-toggle="dropdown" aria-expanded="false">
+                                Seleccionar juegos
+                            </button>
+                            <ul class="dropdown-menu w-100 p-2" id="dropdownMenuEditDlc">
+                                <input type="text" class="form-control mb-2" id="searchInputEditDlc" placeholder="Buscar juego..." required>
+                            </ul>
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="dlcEditTitle" class="form-label fw-bold">Título</label>
+                        <input type="text" class="form-control" id="dlcEditTitle" name="dlcEditTitle" required>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="dlcEditDescription" class="form-label fw-bold">Descripción</label>
+                        <input type="text" class="form-control" id="dlcEditDescription" name="dlcEditDescription" placeholder="Una breve especificación del contenido descargable" required>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="dlcEditReleaseDate" class="form-label fw-bold">Fecha de lanzamiento</label>
+                        <input type="date" class="form-control" id="dlcEditReleaseDate" name="dlcEditReleaseDate" required>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="dlcEditSize" class="form-label fw-bold">Peso</label>
+                        <input type="text" class="form-control" id="dlcEditSize" name="dlcEditSize" placeholder="Ej: 12 GB" required>
+                    </div>
+    
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" id="dlcEditSubmit" class="btn btn-light">Enviar</button>
+                    <button type="button" class="btn btn-outline-danger" id="limpiarDLCForm">Limpiar</button>
+                </div>
+              </form>
+              </div>
+          </div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/modules/CRUDDlc.js"></script>

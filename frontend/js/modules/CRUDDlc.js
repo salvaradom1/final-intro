@@ -28,7 +28,7 @@ function getDataDlcs() {
                                     <li class="list-group-item">Peso: ${dlc.peso} GB</li>
                                 </ul>
                                 <div class="d-flex justify-content-start my-3"> 
-                                    <button class="btn btn-light ms-3" type="button">
+                                    <button class="btn btn-light ms-3 editDlcButton" type="button" data-id="${dlc.id}">
                                         <svg class="icon bi" width="16" height="16" fill="currentColor">
                                             <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
                                         </svg>
@@ -86,5 +86,111 @@ document.addEventListener("DOMContentLoaded", function () {
             getDataDlcs();
         })
         .catch(error => console.error("Error eliminando dlc:", error));
+    });
+});
+
+
+///
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("click", async function (event) {
+        const button = event.target.closest(".editDlcButton");
+        const dlcId = button.getAttribute("data-id");
+
+        console.log("Intentando obtener DLC con ID:", dlcId);
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/v1/dlcs/${dlcId}`);
+            if (!response.ok) throw new Error("No se pudo obtener el DLC");
+
+            const data = await response.json();
+            console.log("DLC obtenido:", data);
+
+            const dropdownMenu = document.getElementById("dropdownMenuEditDlc");
+            dropdownMenu.innerHTML = ""; 
+
+            const resJuegos = await fetch("http://localhost:3000/api/v1/juegos");
+            if (!resJuegos.ok) throw new Error("Error al obtener juegos");
+            const juegos = await resJuegos.json();
+
+            juegos.forEach(juego => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    <label class="dropdown-item">
+                        <input type="radio" name="dlcJuego" value="${juego.id}" class="opcion-checkbox"> ${juego.titulo}
+                    </label>
+                `;
+                dropdownMenu.appendChild(listItem);
+            });
+
+            setTimeout(() => {
+                const radioButtons = document.querySelectorAll("#dropdownMenuEditDlc .opcion-checkbox");
+                radioButtons.forEach(radio => {
+                    radio.checked = (data.juego.id === parseInt(radio.value));
+                });
+            }, 500);
+
+            document.getElementById("editDLCId").value = data.id;
+            document.getElementById("dlcEditTitle").value = data.titulo;
+            document.getElementById("dlcEditDescription").value = data.descripcion;
+            document.getElementById("dlcEditReleaseDate").value = data.fecha_lanzamiento.split('T')[0];
+            document.getElementById("dlcEditSize").value = data.peso;
+
+            const modal = new bootstrap.Modal(document.getElementById("modalEditDLC"));
+            modal.show();
+        } catch (error) {
+            console.error("Error al obtener el DLC:", error);
+            alert("Hubo un problema al cargar el DLC.");
+        }
+    });
+
+    document.getElementById("editDlcForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const dlcId = document.getElementById("editDLCId").value;
+
+        if (!dlcId) {
+            console.error("Error: No se encontró el ID del DLC para actualizar.");
+            alert("Hubo un problema al actualizar el DLC.");
+            return;
+        }
+
+        const selectedGame = document.querySelector("input[name='dlcJuego']:checked");
+        if (!selectedGame) {
+            alert("Debes seleccionar un juego para el DLC.");
+            return;
+        }
+
+        const updatedDLC = {
+            titulo: document.getElementById("dlcEditTitle").value,
+            descripcion: document.getElementById("dlcEditDescription").value,
+            fecha_lanzamiento: document.getElementById("dlcEditReleaseDate").value,
+            peso: document.getElementById("dlcEditSize").value,
+            juegoId: parseInt(selectedGame.value)
+        };
+
+        console.log("Enviando actualización para DLC con ID:", dlcId, updatedDLC);
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/v1/dlcs/${dlcId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedDLC)
+            });
+
+            if (!response.ok) throw new Error(`Error al actualizar el DLC con ID ${dlcId}`);
+
+            const data = await response.json();
+            console.log("DLC actualizado con éxito:", data);
+            alert("DLC actualizado correctamente");
+
+            const modalInstance = bootstrap.Modal.getInstance(document.getElementById("modalEditDLC"));
+            if (modalInstance) modalInstance.hide();
+
+            getDataDlcs();
+        } catch (error) {
+            console.error("Error al actualizar el DLC:", error);
+            alert("Hubo un problema al actualizar el DLC.");
+        }
     });
 });

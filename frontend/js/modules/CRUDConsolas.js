@@ -144,12 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     dropdownMenu.appendChild(listItem);
                 });
 
-                setTimeout(() => {
-                    const checkboxes = document.querySelectorAll("#dropdownMenuConsoleEdit .opcion-checkbox");
-                    checkboxes.forEach(checkbox => {
-                        checkbox.checked = data.juego.some(j => j.id === parseInt(checkbox.value));
-                    });
-                }, 500);
 
                 document.getElementById("editConsoleId").value = data.id;
                 document.getElementById("editConsoleName").value = data.nombre;

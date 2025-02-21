@@ -5,19 +5,44 @@ if (document.getElementById("consoleForm")) {
     limpiarFormulario("consoleForm", "limpiarForm");
     cargarOpciones("juegos", "dropdownMenuConsole", "dropdownMenuButtonConsole", "searchInputConsole");
 
-    document.getElementById("submit-consola").addEventListener("click", createConsole);
-}
+    document.getElementById("consoleForm").addEventListener("submit", function (event) {
+        event.preventDefault(); 
 
-if (document.getElementById("dlcForm")) {
-    limpiarFormulario("dlcForm", "limpiarDLCForm");
-    cargarOpciones("juegos", "dropdownMenuDLC", "dropdownMenuButtonDLC", "searchInputDLC", true);
-
-    document.getElementById("submitDLC").addEventListener("click", createDLC);
+        if (this.checkValidity()) {
+            createConsole(); 
+        } else {
+            alert("Completa todos los campos obligatorios.");
+        }
+    });
 }
 
 if (document.getElementById("juegosForm")) {
     limpiarFormulario("juegosForm", "limpiarJuegosForm");
     cargarOpciones("consolas", "dropdownMenuJuego1", "dropdownMenuButtonJuego1", "searchInputJuego1");
 
-    document.getElementById("submit-juego").addEventListener("click", createGame);
+    document.getElementById("juegosForm").addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        if (this.checkValidity()) {
+            createGame(); 
+        } else {
+            alert("Completa todos los campos obligatorios.");
+        }
+    });
 }
+
+if (document.getElementById("dlcForm")) {
+    limpiarFormulario("dlcForm", "limpiarDLCForm");
+    cargarOpciones("juegos", "dropdownMenuDLC", "dropdownMenuButtonDLC", "searchInputDLC", true);
+
+    document.getElementById("dlcForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (this.checkValidity()) {
+            createDLC();
+        } else {
+            alert("Completa todos los campos obligatorios.");
+        }
+    });
+}
+

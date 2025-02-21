@@ -41,7 +41,8 @@ export function createDLC() {
     const descripcion = document.getElementById('Description').value; 
     const fecha_lanzamiento = document.getElementById('ReleaseDate').value; 
     const peso = document.getElementById('Size').value; 
-    const juego = parseInt(document.querySelector("input[name='juegos']:checked")?.value);
+    const juegosSeleccionados = document.querySelectorAll("#dropdownMenuDLC .opcion-checkbox:checked");
+    const juego = parseInt(juegosSeleccionados[0].value);
 
     const dlc = {
         juegoId : juego,
@@ -83,7 +84,7 @@ export function createGame() {
         titulo,
         descripcion,
         fecha_lanzamiento,
-        modo_de_juego: modosSeleccionados,
+        modoDeJuegoIds: modosSeleccionados,
         peso,
         consolaId : listaConsolas,
     };

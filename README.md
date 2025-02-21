@@ -1,5 +1,5 @@
 # GameFinder API
-### descripción
+### Descripción
 
 Game Finder es una API RESTFUL que permite al usuario actualizar y eliminar videojuegos, consolas y DLCs en la base de datos mediante solicitudes HTTP. Facilita la administración de videojuegos, proporcionando datos detallados sobre cada entidad.
  

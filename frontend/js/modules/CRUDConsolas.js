@@ -113,49 +113,62 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    document.addEventListener("click", function (event) {
+///
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("click", async function (event) {
         const button = event.target.closest(".editConsoleButton");
         if (button) {
             const consoleId = parseInt(button.getAttribute("data-id"));
-
             console.log("Intentando obtener consola con ID:", consoleId);
 
-            fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Consola con ID ${consoleId} no encontrada`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("Consola obtenida:", data); 
+            try {
+                const data = await fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`).then(res => res.json());
+                console.log("Consola obtenida:", data);
 
-                    document.getElementById("editConsoleId").value = data.id;
-                    document.getElementById("editConsoleName").value = data.nombre;
-                    document.getElementById("editConsoleReleaseDate").value = data.fecha_lanzamiento.split('T')[0];
-                    document.getElementById("editConsoleDeveloper").value = data.desarrollador;
-                    document.getElementById("editConsoleStorage").value = data.almacenamiento;
-                    document.getElementById("editConsoleType").value = data.tipo;
+                const dropdownMenu = document.getElementById("dropdownMenuConsoleEdit");
+                dropdownMenu.innerHTML = ""; 
 
-                    const checkboxes = document.querySelectorAll("input[name='juegos']");
-                    checkboxes.forEach(checkbox => {
-                        checkbox.checked = data.juego.some(juego => juego.id === parseInt(checkbox.value));
-                    });
+                const response = await fetch("http://localhost:3000/api/v1/juegos");
+                if (!response.ok) throw new Error("Error al obtener juegos");
+                const juegos = await response.json();
 
-                    const modal = new bootstrap.Modal(document.getElementById("modalEditConsole"));
-                    modal.show();
-                })
-                .catch(error => {
-                    console.error("Error al obtener la consola:", error);
-                    alert("Hubo un problema al cargar la consola.");
+                juegos.forEach(juego => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `
+                        <label class="dropdown-item">
+                            <input type="checkbox" value="${juego.id}" class="opcion-checkbox"> ${juego.titulo}
+                        </label>
+                    `;
+                    dropdownMenu.appendChild(listItem);
                 });
+
+                setTimeout(() => {
+                    const checkboxes = document.querySelectorAll("#dropdownMenuConsoleEdit .opcion-checkbox");
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = data.juego.some(j => j.id === parseInt(checkbox.value));
+                    });
+                }, 500);
+
+                document.getElementById("editConsoleId").value = data.id;
+                document.getElementById("editConsoleName").value = data.nombre;
+                document.getElementById("editConsoleReleaseDate").value = data.fecha_lanzamiento.split('T')[0];
+                document.getElementById("editConsoleDeveloper").value = data.desarrollador;
+                document.getElementById("editConsoleStorage").value = data.almacenamiento;
+                document.getElementById("editConsoleType").value = data.tipo;
+
+                const modal = new bootstrap.Modal(document.getElementById("modalEditConsole"));
+                modal.show();
+            } catch (error) {
+                console.error("Error al obtener la consola:", error);
+                alert("Hubo un problema al cargar la consola.");
+            }
         }
     });
 
-    document.getElementById("consoleForm").addEventListener("submit", function (event) {
-        event.preventDefault(); 
+    document.getElementById("editConsoleForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
 
         const consoleId = document.getElementById("editConsoleId").value;
 
@@ -164,49 +177,33 @@ document.addEventListener("DOMContentLoaded", function () {
             fecha_lanzamiento: document.getElementById("editConsoleReleaseDate").value,
             desarrollador: document.getElementById("editConsoleDeveloper").value,
             almacenamiento: document.getElementById("editConsoleStorage").value,
-            tipo: document.getElementById("editConsoleType").value
+            tipo: document.getElementById("editConsoleType").value,
+            juegoIds: Array.from(document.querySelectorAll("#dropdownMenuConsoleEdit .opcion-checkbox:checked"))
+                .map(input => parseInt(input.value))
         };
-
-        if (!updatedConsole.tipo) {
-            alert("Debes seleccionar un tipo de consola.");
-            return;
-        }
-
-        const selectedGames = Array.from(document.querySelectorAll("input[name='juegos']:checked"))
-            .map(checkbox => parseInt(checkbox.value));
-
-        updatedConsole.juegoIds = selectedGames;
 
         console.log("Enviando actualización para consola con ID:", consoleId, updatedConsole);
 
-        fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedConsole)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error al actualizar la consola con ID ${consoleId}`);
-            }
-            return response.json();
-        })
-        .then(data => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/v1/consolas/${consoleId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedConsole)
+            });
+
+            if (!response.ok) throw new Error(`Error al actualizar la consola con ID ${consoleId}`);
+
+            const data = await response.json();
             console.log("Consola actualizada con éxito:", data);
             alert("Consola actualizada correctamente");
 
             const modalInstance = bootstrap.Modal.getInstance(document.getElementById("modalEditConsole"));
-            if (modalInstance) {
-                modalInstance.hide();
-            }
+            if (modalInstance) modalInstance.hide();
 
             getDataConsolas();
-        })
-
-        .catch(error => {
+        } catch (error) {
             console.error("Error al actualizar la consola:", error);
             alert("Hubo un problema al actualizar la consola.");
-        });
+        }
     });
 });

@@ -118,7 +118,7 @@
                       
                       <input type="hidden" id="editConsoleId">
 
-                      <form id="consoleForm">
+                      <form id="editConsoleForm">
                           <div class="mb-3">
                               <label for="name" class="form-label fw-bold">Nombre <span class="obligatorio">*</span></label>
                               <input type="text" class="form-control" id="editConsoleName" name="name" required>
@@ -153,20 +153,20 @@
                               <label class="form-label fw-bold">Juegos compatibles</label>
                               <div class="dropdown">
                                   <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" 
-                                      id="dropdownMenuButtonConsole" data-bs-toggle="dropdown" aria-expanded="false">
+                                      id="dropdownMenuButtonConsoleEdit" data-bs-toggle="dropdown" aria-expanded="false">
                                       Seleccionar juegos
                                   </button>
-                                  <ul class="dropdown-menu w-100 p-2" id="dropdownMenuConsole" aria-labelledby="dropdownMenuButtonConsole">
+                                  <ul class="dropdown-menu w-100 p-2" id="dropdownMenuConsoleEdit" aria-labelledby="dropdownMenuButtonConsoleEdit">
                                       <li>
-                                          <input type="text" class="form-control mb-2" id="searchInputConsole" placeholder="Buscar juego...">
+                                          <input type="text" class="form-control mb-2" id="searchInputConsoleEdit" placeholder="Buscar juego...">
                                       </li>
                                   </ul>
                               </div>
                           </div>
           
                           <div class="d-flex justify-content-between mt-4">
-                              <button type="submit" id="submit-consola" class="btn btn-light">Guardar cambios</button>
-                              <button type="button" class="btn btn-outline-danger" id="limpiarForm">Limpiar</button>
+                              <button type="submit" id="submitEditConsole" class="btn btn-light">Guardar cambios</button>
+                              <button type="button" class="btn btn-outline-danger" id="limpiarEditConsoleForm">Limpiar</button>
                           </div>
                   </form>
               </div>
@@ -177,6 +177,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/modules/CRUDConsolas.js"> </script>
-    <script src="js/index.js" type="module"></script>
 </body>
 </html>

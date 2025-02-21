@@ -132,12 +132,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     console.log("Consola obtenida:", data); 
 
-                    document.getElementById("editConsoleId").value = data.data.id;
-                    document.getElementById("editConsoleName").value = data.data.nombre;
-                    document.getElementById("editConsoleReleaseDate").value = data.data.fecha_lanzamiento.split("T")[0];
-                    document.getElementById("editConsoleDeveloper").value = data.data.desarrollador;
-                    document.getElementById("editConsoleStorage").value = data.data.almacenamiento;
-                    document.getElementById("editConsoleType").value = data.data.tipo;
+                    document.getElementById("editConsoleId").value = data.id;
+                    document.getElementById("editConsoleName").value = data.nombre;
+                    document.getElementById("editConsoleReleaseDate").value = data.fecha_lanzamiento.split('T')[0];
+                    document.getElementById("editConsoleDeveloper").value = data.desarrollador;
+                    document.getElementById("editConsoleStorage").value = data.almacenamiento;
+                    document.getElementById("editConsoleType").value = data.tipo;
+
+                    const checkboxes = document.querySelectorAll("input[name='juegos']");
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = data.juego.some(juego => juego.id === parseInt(checkbox.value));
+                    });
 
                     const modal = new bootstrap.Modal(document.getElementById("modalEditConsole"));
                     modal.show();
@@ -149,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.getElementById("editConsoleForm").addEventListener("submit", function (event) {
+    document.getElementById("consoleForm").addEventListener("submit", function (event) {
         event.preventDefault(); 
 
         const consoleId = document.getElementById("editConsoleId").value;
@@ -161,6 +166,16 @@ document.addEventListener("DOMContentLoaded", function () {
             almacenamiento: document.getElementById("editConsoleStorage").value,
             tipo: document.getElementById("editConsoleType").value
         };
+
+        if (!updatedConsole.tipo) {
+            alert("Debes seleccionar un tipo de consola.");
+            return;
+        }
+
+        const selectedGames = Array.from(document.querySelectorAll("input[name='juegos']:checked"))
+            .map(checkbox => parseInt(checkbox.value));
+
+        updatedConsole.juegoIds = selectedGames;
 
         console.log("Enviando actualización para consola con ID:", consoleId, updatedConsole);
 
@@ -188,10 +203,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             getDataConsolas();
         })
+
         .catch(error => {
-            console.error(" Error al actualizar la consola:", error);
+            console.error("Error al actualizar la consola:", error);
             alert("Hubo un problema al actualizar la consola.");
         });
     });
 });
-

@@ -59,11 +59,11 @@ app.get('/api/v1/consolas', async (req, res) => {
   res.json(consolas)
  });
 
-//busco una consola por titulo
-app.get('/api/v1/consolas/:nombre', async (req, res) => {
+//busco una consola por id
+app.get('/api/v1/consolas/:id', async (req, res) => {
   const consola = await prisma.consola.findFirst({
     where: {
-      nombre: req.params.nombre
+      id: parseInt(req.params.id)
     },
     include: {
       juego: true
@@ -170,10 +170,10 @@ app.get('/api/v1/juegos', async (req, res) => {
  })
 
 //busco un juego por titulo
-app.get('/api/v1/juegos/:titulo', async (req, res) => {
+app.get('/api/v1/juegos/:id', async (req, res) => {
   const juego = await prisma.juego.findFirst({
     where: {
-      titulo: req.params.titulo
+      id: parseInt(req.params.id)
     },
     include: {
       consola: true,
@@ -301,7 +301,7 @@ app.get('/api/v1/dlcs', async (req, res) => {
 app.get('/api/v1/dlcs/:id', async (req, res) => {
   const dlc = await prisma.dLC.findFirst({
     where: {
-      id: req.params.id
+      id: parseInt(req.params.id)
     },
     include: {
       juego: true

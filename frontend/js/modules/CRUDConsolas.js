@@ -11,8 +11,8 @@ function getDataConsolas() {
             consolas.forEach(consola => {
                 let fechaFormateada = new Date(consola.fecha_lanzamiento).toLocaleDateString();
                 let card = `
-                    <div class="col-sm-4 mb-4">
-                        <div class="card text-left border-0 shadow rounded-0 p-3" style="max-width: 22rem;">
+                    <div class="col-sm-4 mb-4 d-flex align-items-stretch">
+                        <div class="card text-left border-0 shadow rounded-0 p-3 h-100" style="max-width: 22rem;">
                             <div class="icon">
                                 <svg class="icon bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
                                     <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#display"></use>

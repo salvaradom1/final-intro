@@ -12,8 +12,8 @@ function getDataDlcs() {
                 let fechaFormateada = new Date(dlc.fecha_lanzamiento).toLocaleDateString();
                 
                 let card = `
-                    <div class="col-sm-4 mb-4">
-                        <div class="card text-left border-0 shadow rounded-0 p-3" style="max-width: 22rem;">
+                    <div class="col-sm-4 mb-4 d-flex align-items-stretch">
+                        <div class="card text-left border-0 shadow rounded-0 p-3 h-100" style="max-width: 22rem;">
                             <div class="icon">
                                 <svg class="icon bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
                                     <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#puzzle"></use>
@@ -27,7 +27,7 @@ function getDataDlcs() {
                                     <li class="list-group-item">Fecha de lanzamiento: ${fechaFormateada}</li>
                                     <li class="list-group-item">Peso: ${dlc.peso} GB</li>
                                 </ul>
-                                <div class="d-flex justify-content-start my-3"> 
+                                <div class="d-flex justify-content-end my-3"> 
                                     <button class="btn btn-light ms-3 editDlcButton" type="button" data-id="${dlc.id}">
                                         <svg class="icon bi" width="16" height="16" fill="currentColor">
                                             <use xlink:href="node_modules/bootstrap-icons/bootstrap-icons.svg#pencil-square"></use>
